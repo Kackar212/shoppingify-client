@@ -15,8 +15,8 @@ export function Navigation() {
               <Image
                 src="assets/list.svg"
                 alt="Go to home page"
-                width={35}
-                height={35}
+                width={24}
+                height={24}
               />
             </Link>
           </li>
@@ -25,8 +25,8 @@ export function Navigation() {
               <Image
                 src="assets/undo.svg"
                 alt="Go to history page"
-                width={35}
-                height={35}
+                width={24}
+                height={24}
               />
             </Link>
           </li>
@@ -35,8 +35,8 @@ export function Navigation() {
               <Image
                 src="assets/chart.svg"
                 alt="Go to statistics page"
-                width={35}
-                height={35}
+                width={24}
+                height={24}
               />
             </Link>
           </li>
