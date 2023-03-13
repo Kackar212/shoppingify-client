@@ -3,6 +3,14 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
-  width: 70px;
+  width: calc(70px + 1.36em);
   padding: 1em 0.66em;
+  align-items: center;
+
+  .list {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }

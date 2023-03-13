@@ -1,45 +1,43 @@
 import Image from "next/image";
-import Link from "next/link";
 import { CartButton } from "../cart-button/cart-button.component";
+import styles from "./navigation.module.scss";
+import { NavListItem } from "../nav-list-item/nav-list-item.component";
+
+const navigationItems = [
+  {
+    icon: {
+      src: "assets/list.svg",
+      alt: "Go to home page",
+    },
+    href: "/",
+  },
+  {
+    icon: {
+      src: "assets/undo.svg",
+      alt: "Go to history page",
+    },
+    href: "/history",
+  },
+  {
+    icon: {
+      src: "assets/chart.svg",
+      alt: "Go to statistics page",
+    },
+    href: "/statistics",
+  },
+];
 
 export function Navigation() {
   return (
-    <header>
+    <header className={styles.header}>
       <h1>
         <Image src="assets/logo.svg" alt="Shoppingify" width={70} height={70} />
       </h1>
       <nav>
-        <ul>
-          <li>
-            <Link href="/">
-              <Image
-                src="assets/list.svg"
-                alt="Go to home page"
-                width={24}
-                height={24}
-              />
-            </Link>
-          </li>
-          <li>
-            <Link href="/history">
-              <Image
-                src="assets/undo.svg"
-                alt="Go to history page"
-                width={24}
-                height={24}
-              />
-            </Link>
-          </li>
-          <li>
-            <Link href="/statistics">
-              <Image
-                src="assets/chart.svg"
-                alt="Go to statistics page"
-                width={24}
-                height={24}
-              />
-            </Link>
-          </li>
+        <ul className={styles.list}>
+          {navigationItems.map(({ icon, href }) => (
+            <NavListItem key={href} icon={icon} href={href} />
+          ))}
         </ul>
       </nav>
       <CartButton />
