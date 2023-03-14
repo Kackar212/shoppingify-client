@@ -8,9 +8,13 @@
   align-items: center;
 
   .list {
-    height: 100px;
+    height: 10.3125rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  .logo {
+    height: 2.5rem;
   }
 }

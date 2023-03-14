@@ -30,8 +30,8 @@ const navigationItems = [
 export function Navigation() {
   return (
     <header className={styles.header}>
-      <h1>
-        <Image src="assets/logo.svg" alt="Shoppingify" width={70} height={70} />
+      <h1 className={styles.logo}>
+        <Image src="assets/logo.svg" alt="Shoppingify" width={40} height={40} />
       </h1>
       <nav>
         <ul className={styles.list}>
