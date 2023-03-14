@@ -1,10 +1,27 @@
 .button {
-  width: 60px;
+  width: 40px;
+  height: 40px;
   display: flex;
   border-radius: 50%;
   border: 0;
   background: #f9a109;
-  padding: 10px;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.items {
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: #eb5757;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.75em;
 }
