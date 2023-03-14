@@ -20,7 +20,7 @@ const navigationItems = [
   },
   {
     icon: {
-      src: "assets/chart.svg",
+      src: "/assets/stats.png",
       alt: "Go to statistics page",
     },
     href: "/statistics",
