@@ -1,3 +1,5 @@
+@value color-black from './colors.scss';
+
 *,
 *::before,
 *::before {
@@ -17,4 +19,9 @@ ol {
 
 button {
   cursor: pointer;
+}
+
+*:focus,
+*:focus-visible {
+  outline: 2px solid color-black;
 }
