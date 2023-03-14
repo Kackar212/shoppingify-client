@@ -1,10 +1,12 @@
+@value color-orange, color-pink, color-white from 'styles/colors.scss';
+
 .button {
   width: 40px;
   height: 40px;
   display: flex;
   border-radius: 50%;
   border: 0;
-  background: #f9a109;
+  background: color-orange;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -17,11 +19,11 @@
   width: 20px;
   height: 20px;
   border-radius: 4px;
-  background-color: #eb5757;
+  background-color: color-pink;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: color-white;
   font-size: 0.75em;
 }
