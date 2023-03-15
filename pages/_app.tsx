@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import "../styles/normalize.css";
 import "../styles/global.scss";
-import { Layout } from "../src/components/layout.component";
+import { Layout } from "../src/components/layout/layout.component";
 import { Quicksand } from "@next/font/google";
 
 const quicksand = Quicksand({
