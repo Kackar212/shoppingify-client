@@ -270,6 +270,7 @@ export const {
 export const {
   getProducts,
   getProduct,
+  searchProducts,
   register,
   login,
   refreshToken,
