@@ -255,11 +255,16 @@ export const api = createApi({
 export const {
   useGetProductsQuery,
   useGetProductQuery,
+  useSearchProductsQuery,
   useRegisterMutation,
   useLoginMutation,
   useRefreshTokenMutation,
   useResendActivationMailMutation,
   useResetPasswordMutation,
+  useAddProductToListMutation,
+  useDeleteProductFromListMutation,
+  useUpdateListStatusMutation,
+  useSaveListMutation,
 } = api;
 
 export const {
