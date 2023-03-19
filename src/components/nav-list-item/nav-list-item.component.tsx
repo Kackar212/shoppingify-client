@@ -9,9 +9,10 @@ interface NavListItemProps {
     src: string;
     alt: string;
   };
+  tipLabel: string;
 }
 
-export function NavListItem({ href, icon }: NavListItemProps) {
+export function NavListItem({ href, icon, tipLabel }: NavListItemProps) {
   const router = useRouter();
   const ariaCurrent = router.route === href ? "page" : undefined;
 
@@ -26,6 +27,9 @@ export function NavListItem({ href, icon }: NavListItemProps) {
           className={styles.icon}
         />
       </Link>
+      <div aria-hidden="true" className={styles.tooltip}>
+        <span>{tipLabel}</span>
+      </div>
     </li>
   );
 }

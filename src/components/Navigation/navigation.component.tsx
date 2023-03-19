@@ -10,6 +10,7 @@ const navigationItems = [
       alt: "Go to home page",
     },
     href: "/",
+    tipLabel: "home",
   },
   {
     icon: {
@@ -17,6 +18,7 @@ const navigationItems = [
       alt: "Go to history page",
     },
     href: "/history",
+    tipLabel: "history",
   },
   {
     icon: {
@@ -24,6 +26,7 @@ const navigationItems = [
       alt: "Go to statistics page",
     },
     href: "/statistics",
+    tipLabel: "statistics",
   },
 ];
 
@@ -35,8 +38,13 @@ export function Navigation() {
       </h1>
       <nav>
         <ul className={styles.list}>
-          {navigationItems.map(({ icon, href }) => (
-            <NavListItem key={href} icon={icon} href={href} />
+          {navigationItems.map(({ icon, href, tipLabel }) => (
+            <NavListItem
+              key={href}
+              icon={icon}
+              href={href}
+              tipLabel={tipLabel}
+            />
           ))}
         </ul>
       </nav>

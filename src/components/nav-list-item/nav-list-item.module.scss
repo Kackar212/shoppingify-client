@@ -1,4 +1,4 @@
-@value color-orange from 'styles/colors.scss';
+@value color-orange, color-white, color-dark-gray from 'styles/colors.scss';
 
 .listItem {
   display: flex;
@@ -26,5 +26,35 @@
   .icon {
     padding: 0.687em 1.36rem;
     box-sizing: content-box;
+  }
+
+  &:hover + .tooltip {
+    visibility: visible;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  padding: 0.25rem 1rem;
+  right: 0px;
+  transform: translateX(100%);
+  color: color-white;
+  background-color: color-dark-gray;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 15px;
+  visibility: hidden;
+
+  &::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 12px solid #454545;
+    position: absolute;
+    left: -10px;
+    transform: translateY(-50%) rotate(-90deg);
+    top: 50%;
   }
 }
