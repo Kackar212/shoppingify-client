@@ -1,7 +1,14 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryApi,
+  BaseQueryFn,
+  FetchBaseQueryError,
+  createApi,
+  fetchBaseQuery,
+  FetchArgs,
+} from "@reduxjs/toolkit/query/react";
 import { Category } from "../common/interfaces/category.interface";
 import { Product } from "../common/interfaces/product.interface";
-import { HYDRATE } from "next-redux-wrapper";
+import { Context, HYDRATE } from "next-redux-wrapper";
 import { ApiResponse } from "../common/interfaces/api-response.interface";
 import { ApiPagination } from "../common/interfaces/api-pagination.interface";
 import { User } from "../common/interfaces/user.interface";
@@ -11,6 +18,7 @@ import { ResetPasswordBody } from "../common/interfaces/reset-password-body.inte
 import { CreateProductBody } from "../common/interfaces/create-product-body.interface";
 import { SearchProductBody } from "../common/interfaces/search-product-body.interface";
 import { ShoppingList } from "../common/interfaces/shopping-list.interface";
+import { MaybePromise } from "@reduxjs/toolkit/dist/query/tsHelpers";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -19,9 +27,79 @@ const REDIRECT_URL = new URL(
 );
 const AUTH = { credentials: "include" } as const;
 
+type PrepareHeaders = (
+  headers: Headers,
+  api: BaseQueryApi & {
+    extra: Context;
+  }
+) => MaybePromise<Headers>;
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: process.env.NEXT_PUBLIC_API_URL,
+});
+
+const baseQueryWithAuthOnServer =
+  (
+    prepareHeaders?: PrepareHeaders
+  ): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> =>
+  async (args, api, extraOptions) => {
+    const isConfigObject = typeof args !== "string";
+    const isObject = (value: unknown): value is Record<string, string> => {
+      return (
+        typeof value === "object" &&
+        value !== null &&
+        Reflect.getPrototypeOf(value) === Object.prototype
+      );
+    };
+
+    if (isConfigObject && !args.headers) {
+      args.headers = {};
+    }
+
+    if (isConfigObject && isObject(args.headers) && prepareHeaders) {
+      args.headers = await prepareHeaders(
+        new Headers(args.headers),
+        api as BaseQueryApi & { extra: Context }
+      );
+    }
+
+    return await baseQuery(args, api, extraOptions);
+  };
+
 export const api = createApi({
   reducerPath: API_REDUCER_PATH,
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_URL }),
+  baseQuery: baseQueryWithAuthOnServer(
+    (headers, { extra: ctx }): MaybePromise<Headers> => {
+      if (typeof window !== "undefined") {
+        return headers;
+      }
+
+      const isObject = (value: unknown): value is Object =>
+        typeof value === "object" && value !== null;
+
+      if (!isObject(ctx)) {
+        return headers;
+      }
+
+      if ("req" in ctx && isObject(ctx.req)) {
+        const cookies = Reflect.get(ctx.req, "cookies");
+        if (!cookies) {
+          return headers;
+        }
+
+        const { AccessToken, RefreshToken } = cookies;
+
+        headers.set(
+          "cookie",
+          `AccessToken=${AccessToken};RefreshToken=${RefreshToken}`
+        );
+
+        return headers;
+      }
+
+      return headers;
+    }
+  ),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath];

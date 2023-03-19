@@ -1,16 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { api } from "./api";
-import { createWrapper } from "next-redux-wrapper";
+import { Context, createWrapper } from "next-redux-wrapper";
 
 const IS_DEV_MODE = process.env.NODE_ENV === "development";
 
-export const makeStore = () => {
+export const makeStore = (ctx: Context) => {
   return configureStore({
     reducer: {
       [api.reducerPath]: api.reducer,
     },
     middleware(getDefaultMiddleware) {
-      return getDefaultMiddleware().concat(api.middleware);
+      return getDefaultMiddleware({ thunk: { extraArgument: ctx } }).concat(
+        api.middleware
+      );
     },
   });
 };
