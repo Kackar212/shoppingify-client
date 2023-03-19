@@ -1,10 +1,30 @@
+@value color-orange from 'styles/colors.scss';
+
 .listItem {
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
+  position: relative;
 }
 
 .link {
   display: flex;
+
+  &[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: 0;
+    background-color: #f9a109;
+    border-radius: 0px 4px 4px 0px;
+    height: 100%;
+    width: 6px;
+    transform: translateX(100%);
+  }
+
+  .icon {
+    padding: 0.687em 1.36rem;
+    box-sizing: content-box;
+  }
 }
