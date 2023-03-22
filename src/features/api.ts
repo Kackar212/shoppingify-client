@@ -21,6 +21,7 @@ import { ShoppingList } from "../common/interfaces/shopping-list.interface";
 import { MaybePromise } from "@reduxjs/toolkit/dist/query/tsHelpers";
 import { UpdateListStatusBody } from "../common/interfaces/update-list-status-body.interface";
 import { DeleteProductBody } from "../common/interfaces/delete-product-body.interface";
+import { signin, signout } from "./slices/auth.slice";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -64,6 +65,32 @@ const baseQueryWithAuthOnServer =
         api as BaseQueryApi & { extra: Context }
       );
     }
+
+    const result = await baseQuery(args, api, extraOptions);
+
+    if (!result.error) {
+      return result;
+    }
+
+    const isUnauthorized = result.error.status === 401;
+    if (!isUnauthorized) {
+      return result;
+    }
+
+    const refreshResult = await baseQuery(
+      { url: "auth/refresh", method: "POST", credentials: "include" },
+      api,
+      extraOptions
+    );
+
+    if (refreshResult.error) {
+      api.dispatch(signout());
+
+      return result;
+    }
+
+    const { data: user } = refreshResult.data as ApiResponse<User>;
+    api.dispatch(signin(user));
 
     return await baseQuery(args, api, extraOptions);
   };
