@@ -20,6 +20,7 @@ import { SearchProductBody } from "../common/interfaces/search-product-body.inte
 import { ShoppingList } from "../common/interfaces/shopping-list.interface";
 import { MaybePromise } from "@reduxjs/toolkit/dist/query/tsHelpers";
 import { UpdateListStatusBody } from "../common/interfaces/update-list-status-body.interface";
+import { DeleteProductBody } from "../common/interfaces/delete-product-body.interface";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -213,10 +214,13 @@ export const api = createApi({
         };
       },
     }),
-    deleteProductFromList: builder.mutation({
+    deleteProductFromList: builder.mutation<
+      ApiResponse<ShoppingList>,
+      DeleteProductBody
+    >({
       query({ shoppingList, id }) {
         return {
-          method: "POST",
+          method: "DELETE",
           url: "/shopping-list",
           body: {
             shoppingList,
