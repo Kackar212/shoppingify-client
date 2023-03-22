@@ -19,6 +19,7 @@ import { CreateProductBody } from "../common/interfaces/create-product-body.inte
 import { SearchProductBody } from "../common/interfaces/search-product-body.interface";
 import { ShoppingList } from "../common/interfaces/shopping-list.interface";
 import { MaybePromise } from "@reduxjs/toolkit/dist/query/tsHelpers";
+import { UpdateListStatusBody } from "../common/interfaces/update-list-status-body.interface";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -227,11 +228,15 @@ export const api = createApi({
         };
       },
     }),
-    updateListStatus: builder.mutation({
-      query() {
+    updateListStatus: builder.mutation<
+      ApiResponse<ShoppingList>,
+      UpdateListStatusBody
+    >({
+      query({ status, id }) {
         return {
           method: "PATCH",
           url: "shopping-list/status",
+          body: { status, id },
           ...AUTH,
         };
       },
