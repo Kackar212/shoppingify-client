@@ -1,3 +1,5 @@
+@value color-black from 'styles/colors.scss';
+
 .product {
   display: flex;
   max-width: 182px;
@@ -14,6 +16,11 @@
   margin-right: 0.3125rem;
   font-size: 14px;
   max-width: 79px;
+  color: color-black;
+
+  &:hover {
+    text-decoration: underline;
+  }
 
   @media screen and (min-width: 420px) {
     max-width: unset;
