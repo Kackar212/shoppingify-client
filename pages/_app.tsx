@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import "../styles/normalize.css";
-import "../styles/global.scss";
+import globalStyles from "../styles/global.module.scss";
 import { Layout } from "../src/components/layout/layout.component";
 import { Quicksand } from "@next/font/google";
 import { wrapper } from "../src/features/store";
@@ -16,7 +16,7 @@ export default function App({ Component, ...rest }: AppProps) {
 
   return (
     <Provider store={store}>
-      <Layout className={quicksand.className}>
+      <Layout className={`${quicksand.className} ${globalStyles.app}`}>
         <Component {...props.pageProps} />
       </Layout>
     </Provider>
