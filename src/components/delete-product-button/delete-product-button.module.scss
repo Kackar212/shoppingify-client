@@ -1,0 +1,14 @@
+@value color-orange from "styles/colors.scss";
+
+button.button {
+  background-color: color-orange;
+  padding: 0.8475rem;
+  border-radius: 12px;
+  display: flex;
+  position: relative;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
