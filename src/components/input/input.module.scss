@@ -1,0 +1,27 @@
+@value color-gray, color-orange, color-red from "styles/colors.scss";
+
+.input {
+  border: 2px solid color-gray;
+  border-radius: 12px;
+  padding: 1.2rem 1rem;
+  max-width: 18rem;
+  min-width: 15rem;
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+
+  &[aria-invalid="true"] {
+    border-color: color-red;
+  }
+
+  &:focus {
+    border-color: color-orange;
+    outline: 0;
+  }
+
+  &::placeholder,
+  &:placeholder-shown {
+    color: color-gray;
+    opacity: 1;
+  }
+}
