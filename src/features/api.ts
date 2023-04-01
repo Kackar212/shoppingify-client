@@ -273,14 +273,13 @@ export const api = createApi({
         };
       },
     }),
-    saveList: builder.mutation<ApiResponse<ShoppingList>, number>({
-      query(shoppingListId) {
+    saveList: builder.mutation<ApiResponse<ShoppingList>, string>({
+      query(name) {
         return {
           method: "PATCH",
           url: "shopping-list/save",
           body: {
-            id: shoppingListId,
-            status: "saved",
+            name,
           },
           ...AUTH,
         };
