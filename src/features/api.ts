@@ -22,6 +22,7 @@ import { MaybePromise } from "@reduxjs/toolkit/dist/query/tsHelpers";
 import { UpdateListStatusBody } from "../common/interfaces/update-list-status-body.interface";
 import { DeleteProductBody } from "../common/interfaces/delete-product-body.interface";
 import { signin, signout } from "./slices/auth.slice";
+import { UpdateListProductBody } from "../common/interfaces/update-list-product-body.interface";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -285,6 +286,19 @@ export const api = createApi({
         };
       },
     }),
+    updateListProduct: builder.mutation<
+      ApiResponse<ShoppingList>,
+      UpdateListProductBody
+    >({
+      query(updateListProductBody) {
+        return {
+          method: "PATCH",
+          url: "/shopping-list",
+          body: updateListProductBody,
+          ...AUTH,
+        };
+      },
+    }),
   }),
 });
 
@@ -301,6 +315,7 @@ export const {
   useDeleteProductFromListMutation,
   useUpdateListStatusMutation,
   useSaveListMutation,
+  useUpdateListProductMutation,
 } = api;
 
 export const {
@@ -316,4 +331,5 @@ export const {
   deleteProductFromList,
   updateListStatus,
   saveList,
+  updateListProduct,
 } = api.endpoints;
