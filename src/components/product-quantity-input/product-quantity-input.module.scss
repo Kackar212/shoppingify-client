@@ -1,0 +1,39 @@
+@value color-orange from "styles/colors.scss";
+
+.label {
+  font-size: 0.75rem;
+  color: color-orange;
+  display: inline-block;
+  border: 2px solid color-orange;
+  border-radius: 24px;
+  padding: 0.4rem 0.6rem;
+  box-sizing: content-box;
+  margin: 0 0.3rem;
+  font-weight: 700;
+
+  &:focus-within {
+    outline: 1px solid;
+  }
+}
+
+.quantity {
+  width: 2.15em;
+  border: 0;
+  text-align: center;
+  color: inherit;
+  font: inherit;
+
+  &[type="number"]::-webkit-outer-spin-button,
+  &[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    appearance: textfield;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
