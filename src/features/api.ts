@@ -251,6 +251,16 @@ export const api = createApi({
           ...AUTH,
         };
       },
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            api.util.updateQueryData("getActiveList", undefined, (draft) => {
+              Object.assign(draft, data);
+            })
+          );
+        } catch {}
+      },
     }),
     deleteProductFromList: builder.mutation<
       ApiResponse<ShoppingList>,
@@ -268,6 +278,21 @@ export const api = createApi({
           },
           ...AUTH,
         };
+      },
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          dispatch(
+            api.util.updateQueryData("getActiveList", undefined, (draft) => {
+              draft.data.products = draft.data.products.map((product) => {
+                if (product.id === _arg.id) {
+                  product.isDeleted = true;
+                }
+
+                return product;
+              });
+            })
+          );
+        } catch {}
       },
     }),
     updateListStatus: builder.mutation<
@@ -294,6 +319,16 @@ export const api = createApi({
           ...AUTH,
         };
       },
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            api.util.updateQueryData("getActiveList", undefined, (draft) => {
+              Object.assign(draft, data);
+            })
+          );
+        } catch {}
+      },
     }),
     updateListProduct: builder.mutation<
       ApiResponse<ShoppingList>,
@@ -306,6 +341,16 @@ export const api = createApi({
           body: updateListProductBody,
           ...AUTH,
         };
+      },
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            api.util.updateQueryData("getActiveList", undefined, (draft) => {
+              Object.assign(draft, data);
+            })
+          );
+        } catch {}
       },
     }),
   }),
