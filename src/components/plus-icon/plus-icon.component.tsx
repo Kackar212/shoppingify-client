@@ -1,33 +1,28 @@
-export function PlusIcon({ color = "#C1C1C4" }) {
+import { SVGProps } from "react";
+
+interface PlusIconProps extends SVGProps<SVGPathElement> {
+  svg?: SVGProps<SVGSVGElement>;
+}
+
+export function PlusIcon({ svg = {}, ...svgPathProps }: PlusIconProps) {
+  const pathProps: SVGProps<SVGPathElement> = {
+    stroke: "#c1c1c4",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    ...svgPathProps,
+  };
+
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
+      aria-hidden="true"
+      {...svg}
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
-      <g id="SVGRepo_iconCarrier">
-        <path
-          d="M5 12H19"
-          stroke={color}
-          stroke-width="1.44"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></path>
-        <path
-          d="M12 5L12 19"
-          stroke={color}
-          stroke-width="1.44"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></path>
-      </g>
+      <path d="M5 12H19" {...pathProps}></path>
+      <path d="M12 5L12 19" {...pathProps}></path>
     </svg>
   );
 }
