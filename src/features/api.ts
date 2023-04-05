@@ -135,6 +135,7 @@ export const api = createApi({
       return action.payload[reducerPath];
     }
   },
+  tagTypes: ["shoppingList"],
   endpoints: (builder) => ({
     getProducts: builder.query<ApiResponse<Category[], ApiPagination>, void>({
       query: () => "/products",
@@ -220,6 +221,15 @@ export const api = createApi({
           ...AUTH,
         };
       },
+    }),
+    getActiveList: builder.query<ApiResponse<ShoppingList>, void>({
+      query() {
+        return {
+          url: "/shopping-list/active",
+          ...AUTH,
+        };
+      },
+      providesTags: ["shoppingList"],
     }),
     addProductToList: builder.mutation<
       ApiResponse<ShoppingList>,
@@ -310,6 +320,7 @@ export const {
   useRefreshTokenMutation,
   useResendActivationMailMutation,
   useResetPasswordMutation,
+  useGetActiveListQuery,
   useAddProductToListMutation,
   useDeleteProductFromListMutation,
   useUpdateListStatusMutation,
@@ -326,6 +337,7 @@ export const {
   refreshToken,
   resendActivationMail,
   resetPassword,
+  getActiveList,
   addProductToList,
   deleteProductFromList,
   updateListStatus,
