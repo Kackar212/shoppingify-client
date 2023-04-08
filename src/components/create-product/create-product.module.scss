@@ -1,0 +1,44 @@
+@value color-white, color-orange, color-black, color-pink from "styles/colors.scss";
+
+.container {
+  background-color: color-pink;
+  border-radius: 24px;
+  width: 100%;
+  line-height: 20px;
+  padding: 1.125rem 1.3875rem 1.125rem 7rem;
+  color: color-white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  position: absolute;
+  left: 10px;
+  top: -17px;
+}
+
+.header {
+  margin-bottom: 0.6875rem;
+}
+
+.headerText {
+  margin: 0;
+}
+
+.button {
+  border-radius: 12px;
+  background: color-white;
+  font-size: 0.875rem;
+  padding: 0.625rem;
+  border: 1px solid transparent;
+  transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+  color: color-black;
+  text-align: center;
+
+  &:hover {
+    background-color: transparent;
+    color: color-white;
+    border-color: color-white;
+  }
+}
