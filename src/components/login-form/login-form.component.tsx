@@ -8,9 +8,8 @@ import * as yup from "yup";
 import { FormFieldInput } from "../../common/interfaces/form-field-input.interface";
 import { AuthFormContent } from "../auth-form-content/auth-form-content.component";
 import { AuthForm } from "../auth-form/auth-form.component";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../../features/slices/auth.slice";
 import { useRedirect } from "../../hooks/useRedirect";
+import { setCookie } from "cookies-next";
 
 export const inputs: FormFieldInput[] = [
   { name: "email", label: "Email" },
@@ -44,7 +43,7 @@ export function LoginForm() {
 
   useEffect(() => {
     if (isSuccess && data) {
-      localStorage.setItem("user", JSON.stringify(data.data));
+      setCookie("user", data.data);
 
       redirect();
     }
