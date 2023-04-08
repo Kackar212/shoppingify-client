@@ -10,7 +10,7 @@ export function CartButton({ items }: CartButtonProps) {
   return (
     <button type="button" className={styles.button}>
       <Image
-        src="assets/shopping-cart.svg"
+        src="/assets/shopping-cart.svg"
         alt="Open items list"
         width={20}
         height={20}
