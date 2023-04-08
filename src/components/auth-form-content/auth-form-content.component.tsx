@@ -25,15 +25,15 @@ export function AuthFormContent({
 }: AuthFormContentProps) {
   const {
     reset,
-    formState: { defaultValues, isSubmitted },
+    formState: { isSubmitSuccessful, defaultValues },
   } = useFormContext();
 
   useEffect(() => {
-    if (isSubmitted && !isSuccess) {
+    if (isSubmitSuccessful && !isSuccess) {
       reset({ ...defaultValues, password: "" });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitted, isSuccess]);
+  }, [isSubmitSuccessful, isSuccess]);
 
   return (
     <>
