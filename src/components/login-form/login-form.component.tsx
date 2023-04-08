@@ -8,6 +8,9 @@ import * as yup from "yup";
 import { FormFieldInput } from "../../common/interfaces/form-field-input.interface";
 import { AuthFormContent } from "../auth-form-content/auth-form-content.component";
 import { AuthForm } from "../auth-form/auth-form.component";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../../features/slices/auth.slice";
+import { useRedirect } from "../../hooks/useRedirect";
 
 export const inputs: FormFieldInput[] = [
   { name: "email", label: "Email" },
@@ -25,6 +28,7 @@ export function LoginForm() {
   const [signInUser, { error, isSuccess, isLoading, data }] =
     useLoginMutation();
   const errorMessage = useGetErrorMessage(error);
+  const redirect = useRedirect("/", true);
 
   const signIn = useCallback(
     async (data: LoginBody) => {
@@ -41,6 +45,8 @@ export function LoginForm() {
   useEffect(() => {
     if (isSuccess && data) {
       localStorage.setItem("user", JSON.stringify(data.data));
+
+      redirect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
