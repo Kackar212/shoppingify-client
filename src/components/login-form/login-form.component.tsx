@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { LoginBody } from "../../common/interfaces/login-body.interface";
 import { useGetErrorMessage } from "../../hooks/useGetErrorMessage";
 import { useLoginMutation } from "../../features/api";
@@ -22,7 +22,8 @@ export const signInSchema = yup
   .required();
 
 export function LoginForm() {
-  const [signInUser, { error, isSuccess, isLoading }] = useLoginMutation();
+  const [signInUser, { error, isSuccess, isLoading, data }] =
+    useLoginMutation();
   const errorMessage = useGetErrorMessage(error);
 
   const signIn = useCallback(
@@ -36,6 +37,13 @@ export function LoginForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isLoading]
   );
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      localStorage.setItem("user", JSON.stringify(data.data));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   return (
     <AuthForm<LoginBody> schema={signInSchema} onSubmit={signIn}>
