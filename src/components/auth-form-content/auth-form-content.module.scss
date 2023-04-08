@@ -1,0 +1,16 @@
+@value color-red, color-green from "styles/colors.scss";
+.error {
+  color: color-red;
+}
+
+.success {
+  color: color-green;
+}
+
+.field {
+  width: 100%;
+}
+
+.message {
+  margin: 0.66rem 0;
+}
