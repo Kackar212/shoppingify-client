@@ -1,4 +1,5 @@
-@value color-red, color-green from "styles/colors.scss";
+@value color-white, color-red, color-green, color-orange from "styles/colors.scss";
+
 .error {
   color: color-red;
 }
@@ -13,4 +14,14 @@
 
 .message {
   margin: 0.66rem 0;
+}
+
+button.submitButton {
+  padding: 0.5rem 0;
+  width: 100%;
+  background: color-orange;
+  color: color-white;
+  border-radius: 12px;
+  margin-top: 0.33rem;
+  position: relative;
 }

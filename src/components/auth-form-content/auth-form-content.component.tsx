@@ -66,7 +66,9 @@ export function AuthFormContent({
           />
         )
       )}
-      <Button type="submit">{submitButtonText}</Button>
+      <Button type="submit" className={styles.submitButton}>
+        {submitButtonText}
+      </Button>
     </>
   );
 }
