@@ -1,0 +1,90 @@
+@value color-white from "styles/colors.scss";
+
+.product {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  transform: translateX(100%);
+  animation: show 0.35s, fadeIn 0.35s 0.35s forwards;
+  padding: 2px 0;
+}
+
+.deletedProduct {
+  composes: product;
+  animation: fadeOut 0.5s forwards, hide 0.5s 0.5s forwards;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  font-weight: 500;
+  column-gap: 0.66rem;
+  padding: calc(0.33rem + 4px) 2px;
+}
+
+button.name {
+  padding: 0 2px;
+}
+
+.actions {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  column-gap: 0.33rem;
+  background-color: color-white;
+  padding: 0 0.33rem;
+  height: 0;
+  opacity: 0;
+  transition: height 0.5s 0.1s, opacity 0.5s 0.1s;
+}
+
+.chuj {
+  display: none;
+}
+
+.actionsActive {
+  --height: 45px;
+  height: var(--height);
+  opacity: 1;
+}
+
+@keyframes hide {
+  from {
+    height: 100px;
+  }
+
+  to {
+    height: 0;
+  }
+}
+
+@keyframes show {
+  from {
+    height: 0px;
+  }
+
+  to {
+    height: 50px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
