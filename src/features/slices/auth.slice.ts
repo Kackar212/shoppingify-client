@@ -8,10 +8,9 @@ interface Auth {
   user: User | null;
 }
 
-const user = JSON.parse(localStorage.getItem("user") || "null");
 const initialState: Auth = {
-  isLoggedIn: !!user,
-  user,
+  isLoggedIn: false,
+  user: null,
 };
 
 const authSlice = createSlice({
