@@ -39,10 +39,6 @@ button.name {
   transition: height 0.5s 0.1s, opacity 0.5s 0.1s;
 }
 
-.chuj {
-  display: none;
-}
-
 .actionsActive {
   --height: 45px;
   height: var(--height);
