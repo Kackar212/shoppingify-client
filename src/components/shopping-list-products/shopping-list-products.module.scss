@@ -1,0 +1,58 @@
+@value color-old-silver from "styles/colors.scss";
+
+.container {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+  position: relative;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.products {
+  overflow: hidden;
+}
+
+.noItems {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
+
+.noItemsText {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.noItemsImage {
+  width: 75%;
+  height: auto;
+  padding: 1rem;
+}
+
+.category {
+  padding: 2rem 0;
+  transform: translateX(0);
+  transition: visibility 0s 0.6s, transform 0.5s, height 0s 0.6s,
+    padding 0s 0.6s;
+  overflow: hidden;
+}
+
+.deleteCategory {
+  composes: category;
+  transform: translateX(100%);
+  visibility: hidden;
+  height: 0;
+  padding: 0;
+}
+
+.categoryName {
+  color: color-old-silver;
+  font-size: 0.875rem;
+}
