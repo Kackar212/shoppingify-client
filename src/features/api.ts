@@ -23,7 +23,6 @@ import { UpdateListStatusBody } from "../common/interfaces/update-list-status-bo
 import { DeleteProductBody } from "../common/interfaces/delete-product-body.interface";
 import { signin, signout } from "./slices/auth.slice";
 import { UpdateListProductBody } from "../common/interfaces/update-list-product-body.interface";
-import { decreaseTotalItems } from "./slices/shopping-list.slice";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -282,6 +281,8 @@ export const api = createApi({
       },
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
+          await queryFulfilled;
+
           dispatch(
             api.util.updateQueryData("getActiveList", undefined, (draft) => {
               draft.data.products = draft.data.products.map((product) => {
@@ -293,7 +294,6 @@ export const api = createApi({
               });
             })
           );
-          dispatch(decreaseTotalItems());
         } catch {}
       },
     }),
