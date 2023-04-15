@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { api } from "./api";
 import { Context, createWrapper } from "next-redux-wrapper";
 import authReducer from "./slices/auth.slice";
+import shoppingListReducer from "./slices/shopping-list.slice";
 
 const IS_DEV_MODE = process.env.NODE_ENV === "development";
 
@@ -10,6 +11,7 @@ export const makeStore = (ctx: Context) => {
     reducer: {
       [api.reducerPath]: api.reducer,
       auth: authReducer,
+      shoppingList: shoppingListReducer,
     },
     middleware(getDefaultMiddleware) {
       return getDefaultMiddleware({ thunk: { extraArgument: ctx } }).concat(
