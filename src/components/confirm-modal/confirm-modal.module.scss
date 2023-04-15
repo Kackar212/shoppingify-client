@@ -1,0 +1,43 @@
+@value color-white, color-black, color-tuna, color-pink, color-pearl-dark-gray from "styles/colors.scss";
+
+@mixin button {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.container {
+  width: 80%;
+}
+
+.form {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+button.cancelButton {
+  @include button;
+  color: color-tuna;
+  margin: 0 1.5625rem;
+}
+
+button.confirmButton {
+  @include button;
+  background-color: color-pink;
+  color: color-white;
+  padding: 1.25rem 1.875rem;
+  border-radius: 12px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: rotate(45deg);
+
+  svg > path {
+    stroke: color-pearl-dark-gray;
+  }
+}
