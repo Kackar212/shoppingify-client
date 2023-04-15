@@ -1,0 +1,44 @@
+@import "styles/variables.scss";
+@value color-orange, color-white, color-red, color-green from "styles/colors.scss";
+
+.form {
+  display: flex;
+  width: calc(100% + 2rem);
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 -1rem;
+  padding-bottom: 0.5rem;
+  background-color: color-white;
+
+  .field {
+    width: calc(100% - 67.79px - 2rem);
+  }
+
+  input {
+    border-color: color-orange;
+    min-width: unset;
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+    height: 61.25px;
+
+    &:focus {
+      box-shadow: inset 0 0 0 1px color-orange;
+    }
+  }
+}
+
+.successMessage {
+  color: color-green;
+}
+
+button.submit {
+  padding: 0 1.11875rem;
+  background-color: color-orange;
+  color: #fff;
+  border-radius: 0 12px 12px 0;
+  height: 61.25px;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  position: relative;
+}
