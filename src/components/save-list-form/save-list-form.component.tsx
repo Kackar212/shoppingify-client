@@ -51,7 +51,7 @@ export function SaveListForm() {
       saveActiveList(listName);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [hasProducts]
   );
 
   useEffect(() => {
