@@ -1,7 +1,7 @@
-@value color-white, color-orange, color-black, color-pink from "styles/colors.scss";
+@value color-white, color-orange, color-black, color-dark-pink from "styles/colors.scss";
 
 .container {
-  background-color: color-pink;
+  background-color: color-dark-pink;
   border-radius: 24px;
   width: 100%;
   line-height: 20px;
