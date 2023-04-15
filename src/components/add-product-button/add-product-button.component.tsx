@@ -8,6 +8,7 @@ import {
 import { useCallback } from "react";
 import { Button } from "../button/button.component";
 import { useMutationDebounce } from "../../hooks/useDebounceMutation";
+import { toast } from "react-toastify";
 
 interface AddProductButtonProps {
   id: number;
@@ -34,8 +35,7 @@ export function AddProductButton({ name, id }: AddProductButtonProps) {
     );
 
     if (isProductAlreadyInList) {
-      // TODO Show user an error
-      return console.error("Product is already in your list!");
+      return toast.error("Product is already in your list!");
     }
 
     addProductToList(id);
