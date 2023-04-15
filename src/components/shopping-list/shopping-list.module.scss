@@ -1,0 +1,24 @@
+@import "styles/variables.scss";
+@value color-cornsilk from "styles/colors.scss";
+
+.shoppingList {
+  width: calc(100% - $navigation-width);
+  padding: 1rem 1rem 0 1rem;
+  overflow: hidden;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  right: -350px;
+  background: color-cornsilk;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1;
+  max-width: 350px;
+  transition: right 0.5s;
+}
+
+.shoppingListOpen {
+  composes: shoppingList;
+  right: 0;
+}
