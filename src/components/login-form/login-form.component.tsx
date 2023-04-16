@@ -27,7 +27,7 @@ export function LoginForm() {
   const [signInUser, { error, isSuccess, isLoading, data }] =
     useLoginMutation();
   const errorMessage = useGetErrorMessage(error);
-  const redirect = useRedirect("/", true);
+  useRedirect("/", true);
 
   const signIn = useCallback(
     async (data: LoginBody) => {
@@ -44,8 +44,6 @@ export function LoginForm() {
   useEffect(() => {
     if (isSuccess && data) {
       setCookie("user", data.data);
-
-      redirect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
