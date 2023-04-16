@@ -1,0 +1,10 @@
+@value color-tuna from "styles/colors.scss";
+
+.link {
+  font-weight: 700;
+  color: color-tuna;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
