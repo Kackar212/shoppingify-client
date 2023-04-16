@@ -4,9 +4,9 @@ import { FormField } from "../form-field/form-field.component";
 import { Input } from "../input/input.component";
 import { useFormContext } from "react-hook-form";
 import styles from "./auth-form-content.module.scss";
-import { useEffect } from "react";
+import { PropsWithChildren, useEffect } from "react";
 
-interface AuthFormContentProps {
+interface AuthFormContentProps extends PropsWithChildren {
   heading: string;
   errorMessage?: string;
   successMessage: string;
@@ -22,6 +22,7 @@ export function AuthFormContent({
   inputs,
   isSuccess,
   submitButtonText = heading,
+  children,
 }: AuthFormContentProps) {
   const {
     reset,
@@ -66,6 +67,7 @@ export function AuthFormContent({
           />
         )
       )}
+      {children}
       <Button
         type="submit"
         className={styles.submitButton}
