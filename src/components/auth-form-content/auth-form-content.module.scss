@@ -24,4 +24,8 @@ button.submitButton {
   border-radius: 12px;
   margin-top: 0.33rem;
   position: relative;
+
+  &:disabled {
+    opacity: 0.75;
+  }
 }

@@ -66,7 +66,11 @@ export function AuthFormContent({
           />
         )
       )}
-      <Button type="submit" className={styles.submitButton}>
+      <Button
+        type="submit"
+        className={styles.submitButton}
+        disabled={isSuccess}
+      >
         {submitButtonText}
       </Button>
     </>
