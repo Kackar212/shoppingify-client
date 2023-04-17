@@ -11,7 +11,7 @@ export function Categories() {
   const { categories, isFetching } = useGetProductsQuery(
     router.isFallback ? skipToken : undefined,
     {
-      refetchOnMountOrArgChange: 9,
+      refetchOnMountOrArgChange: 900,
       selectFromResult(result) {
         return {
           categories: result.data?.data,
