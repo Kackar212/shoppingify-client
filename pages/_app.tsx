@@ -9,6 +9,7 @@ import { getCookie } from "cookies-next";
 import { signin } from "../src/features/slices/auth.slice";
 import App from "next/app";
 import { redirect } from "../src/common/utils/redirect";
+import { api, getActiveList } from "../src/features/api";
 
 const quicksand = Quicksand({
   weight: ["500", "700"],
@@ -41,6 +42,12 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
 
     if (typeof stringifiedUser === "string" && (accessToken || refreshToken)) {
       const user = JSON.parse(stringifiedUser);
+
+      try {
+        store.dispatch(getActiveList.initiate());
+
+        await Promise.all(store.dispatch(api.util.getRunningQueriesThunk()));
+      } catch {}
 
       store.dispatch(signin(user));
 
