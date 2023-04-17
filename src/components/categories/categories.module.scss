@@ -22,3 +22,12 @@
   background: transparent;
   left: unset;
 }
+
+.noItems {
+  margin: 1rem;
+  font-weight: 700;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

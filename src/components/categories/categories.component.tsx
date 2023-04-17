@@ -43,6 +43,7 @@ export function Categories() {
           products={category.products}
         />
       ))}
+      {!categories.length && <p className={styles.noItems}>No items!</p>}
     </div>
   );
 }
