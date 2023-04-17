@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { useRefreshTokenMutation } from "../../features/api";
 import { useRouter } from "next/router";
+import { ShoppingList } from "../shopping-list/shopping-list.component";
 
 interface LayoutProps {
   children: ReactNode;
@@ -26,6 +27,7 @@ export function Layout({ children, className }: LayoutProps) {
     <div className={`${className} ${styles.container}`}>
       <Navigation />
       <main className={styles.main}>{children}</main>
+      <ShoppingList />
       <ToastContainer
         position="top-right"
         autoClose={3000}
