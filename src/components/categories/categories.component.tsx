@@ -36,14 +36,13 @@ export function Categories() {
           <Loader />
         </div>
       )}
-      {categories &&
-        categories.map((category) => (
-          <Products
-            key={category.id}
-            category={category}
-            products={category.products}
-          />
-        ))}
+      {categories.map((category) => (
+        <Products
+          key={category.id}
+          category={category}
+          products={category.products}
+        />
+      ))}
     </div>
   );
 }
