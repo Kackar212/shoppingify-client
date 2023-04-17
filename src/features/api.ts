@@ -24,6 +24,7 @@ import { DeleteProductBody } from "../common/interfaces/delete-product-body.inte
 import { signin, signout } from "./slices/auth.slice";
 import { UpdateListProductBody } from "../common/interfaces/update-list-product-body.interface";
 import { addProduct, decreaseTotalItems } from "./slices/shopping-list.slice";
+import type { IncomingMessage } from "http";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -112,8 +113,8 @@ export const api = createApi({
         return headers;
       }
 
-      if ("req" in ctx && isObject(ctx.req)) {
-        const cookies = Reflect.get(ctx.req, "cookies");
+      function appendHeaders(req: IncomingMessage) {
+        const cookies = Reflect.get(req, "cookies");
         if (!cookies) {
           return headers;
         }
@@ -126,6 +127,14 @@ export const api = createApi({
         );
 
         return headers;
+      }
+
+      if ("req" in ctx && isObject(ctx.req)) {
+        appendHeaders(ctx.req);
+      }
+
+      if ("ctx" in ctx && ctx.ctx.req) {
+        appendHeaders(ctx.ctx.req);
       }
 
       return headers;
