@@ -2,6 +2,7 @@ import { createAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { getActiveList } from "../api";
 import { HYDRATE } from "next-redux-wrapper";
+import { signout } from "./auth.slice";
 
 interface ShoppingListState {
   isOpen: boolean;
@@ -47,6 +48,9 @@ const shoppingListSlice = createSlice({
           return { ...state, ...shoppingList };
         }
       )
+      .addCase(signout, () => {
+        return initialState;
+      })
       .addMatcher(
         getActiveList.matchFulfilled,
         (state, { payload: { data: shoppingList } }) => {
