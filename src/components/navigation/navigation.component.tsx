@@ -4,6 +4,7 @@ import styles from "./navigation.module.scss";
 import { NavListItem } from "../nav-list-item/nav-list-item.component";
 import { useSelector } from "react-redux";
 import { selectShoppingList } from "../../features/slices/shopping-list.slice";
+import { selectAuth } from "../../features/slices/auth.slice";
 
 const navigationItems = [
   {
@@ -34,6 +35,7 @@ const navigationItems = [
 
 export function Navigation() {
   const shoppingList = useSelector(selectShoppingList);
+  const { isLoggedIn } = useSelector(selectAuth);
 
   return (
     <header className={styles.header}>
@@ -55,6 +57,13 @@ export function Navigation() {
               tipLabel={tipLabel}
             />
           ))}
+          {isLoggedIn && (
+            <NavListItem
+              icon={{ src: "/assets/logout.svg", alt: "Sign out" }}
+              href="/logout"
+              tipLabel="sign out"
+            />
+          )}
         </ul>
       </nav>
       <CartButton items={shoppingList.totalItems} />
