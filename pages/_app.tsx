@@ -40,7 +40,11 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
       redirect("/auth/login", res);
     }
 
-    if (typeof stringifiedUser === "string" && (accessToken || refreshToken)) {
+    if (
+      typeof stringifiedUser === "string" &&
+      (accessToken || refreshToken) &&
+      pathname !== "/logout"
+    ) {
       const user = JSON.parse(stringifiedUser);
 
       try {
