@@ -178,6 +178,13 @@ export const api = createApi({
         };
       },
     }),
+    searchCategories: builder.query<ApiResponse<Category[]>, string>({
+      query(name) {
+        return {
+          url: `categories/search/${name}`,
+        };
+      },
+    }),
     register: builder.mutation<ApiResponse<User>, RegisterBody>({
       query(userData) {
         return {
@@ -376,6 +383,7 @@ export const {
   useGetProductsQuery,
   useGetProductQuery,
   useSearchProductsQuery,
+  useSearchCategoriesQuery,
   useRegisterMutation,
   useLoginMutation,
   useRefreshTokenMutation,
@@ -393,6 +401,7 @@ export const {
   getProducts,
   getProduct,
   searchProducts,
+  searchCategories,
   register,
   login,
   refreshToken,
