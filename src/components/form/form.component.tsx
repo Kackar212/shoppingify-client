@@ -9,15 +9,15 @@ import {
 
 interface FormProps<T extends FieldValues>
   extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
-  onSubmit: SubmitHandler<T>;
+  onSubmit?: SubmitHandler<T>;
   children: ReactNode;
-  options: UseFormProps<T>;
+  options?: UseFormProps<T>;
 }
 
 export function Form<T extends FieldValues>({
-  onSubmit,
+  onSubmit = () => null,
   children,
-  options,
+  options = {},
   ...attrs
 }: FormProps<T>) {
   const methods = useForm<T>(options);
