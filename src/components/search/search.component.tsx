@@ -29,6 +29,7 @@ export function Search({
       onChange={onChange}
       onCreateOption={onCreateOption}
       value={value}
+      isClearable
     />
   );
 }
