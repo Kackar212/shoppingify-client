@@ -4,6 +4,9 @@ import {
   TypedUseQueryStateResult,
 } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { ApiResponse } from "./interfaces/api-response.interface";
+import { ChangeHandler, RegisterOptions } from "react-hook-form";
+import { MultiLineInput } from "./interfaces/multi-line-input.interface";
+import { SingleLineInput } from "./interfaces/single-line-input.interface";
 
 export type Query<T> = LazyQueryTrigger<
   QueryDefinition<any, any, any, ApiResponse<T>>
@@ -31,5 +34,10 @@ export type HTMLInputTypeAttribute =
   | "text"
   | "time"
   | "url"
-  | "week"
-  | "textarea";
+  | "week";
+
+export type TextFieldProps = (MultiLineInput | SingleLineInput) & {
+  options?: RegisterOptions;
+  name: string;
+  onChange?: ChangeHandler;
+};
