@@ -1,0 +1,6 @@
+@import "../input/input.module.scss";
+
+.textarea {
+  composes: input;
+  min-height: 12rem;
+}
