@@ -3,6 +3,13 @@ import { Options, SingleValue } from "react-select";
 import { debounce } from "lodash";
 import { Query, QueryState } from "../common/types";
 
+interface UseSearchArgs<T> {
+  query: Query<T>;
+  queryState: QueryState<T>;
+  transformValue?: (value: string) => unknown;
+  onMountArg?: string;
+}
+
 export interface Option {
   value: string;
   label: string;
@@ -33,11 +40,12 @@ function createOption(
   };
 }
 
-export function useSearch<T extends Array<any>>(
-  query: Query<T>,
-  queryState: QueryState<T>,
-  onMountArg: string = ""
-) {
+export function useSearch<T extends Array<any>>({
+  query,
+  queryState,
+  transformValue = (value) => value,
+  onMountArg = "",
+}: UseSearchArgs<T>) {
   const { data } = queryState;
   const [value, setValue] = useState<SingleValue<Option>>(
     createOption(onMountArg)
@@ -45,7 +53,7 @@ export function useSearch<T extends Array<any>>(
   const [options, setOptions] = useState<Options<Option>>([]);
 
   useEffect(() => {
-    query(onMountArg);
+    query(transformValue(onMountArg));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -54,7 +62,7 @@ export function useSearch<T extends Array<any>>(
       return;
     }
 
-    query(category);
+    query(transformValue(category));
   }, 200);
 
   const onCreateOption = useCallback((category: string) => {
