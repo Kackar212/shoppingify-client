@@ -47,9 +47,7 @@ export function useSearch<T extends Array<any>>({
   onMountArg = "",
 }: UseSearchArgs<T>) {
   const { data } = queryState;
-  const [value, setValue] = useState<SingleValue<Option>>(
-    createOption(onMountArg)
-  );
+  const [value, setValue] = useState<SingleValue<Option>>();
   const [options, setOptions] = useState<Options<Option>>([]);
 
   useEffect(() => {

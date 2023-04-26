@@ -9,7 +9,7 @@ interface SearchProps {
   options: OptionsOrGroups<Option, GroupBase<Option>>;
   onChange: (option: SingleValue<Option>) => void;
   onCreateOption: (value: string) => void;
-  value: SingleValue<Option>;
+  value?: SingleValue<Option>;
   hideDropdownIndicator?: boolean;
 }
 
@@ -34,6 +34,7 @@ export function Search({
       value={value}
       isClearable
       maxMenuHeight={210}
+      placeholder={`Enter a ${name.toLowerCase()}`}
       styles={{
         dropdownIndicator: (state) => ({
           display: hideDropdownIndicator ? "none" : "block",
