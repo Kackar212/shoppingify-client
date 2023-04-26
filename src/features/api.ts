@@ -155,7 +155,7 @@ export const api = createApi({
         return `products/${id}`;
       },
     }),
-    createProduct: builder.query<
+    createProduct: builder.mutation<
       ApiResponse<Product<Category>>,
       CreateProductBody
     >({
@@ -382,6 +382,7 @@ export const api = createApi({
 export const {
   useGetProductsQuery,
   useGetProductQuery,
+  useCreateProductMutation,
   useSearchProductsQuery,
   useSearchCategoriesQuery,
   useRegisterMutation,
@@ -400,6 +401,7 @@ export const {
 export const {
   getProducts,
   getProduct,
+  createProduct,
   searchProducts,
   searchCategories,
   register,
