@@ -49,19 +49,21 @@ export function ShoppingListProduct({
     }
   }, [isDeleted]);
 
+  if (canBeDeleted) {
+    return null;
+  }
+
   return (
-    !canBeDeleted && (
-      <article className={isDeleted ? styles.deletedProduct : styles.product}>
-        <header className={styles.header}>
-          <button onClick={toggleActions} className={styles.name}>
-            {name} <VisuallyHidden> - Show actions</VisuallyHidden>
-          </button>
-          <ProductQuantity defaultQuantity={quantity} id={id} />
-        </header>
-        <div className={actionsClassName}>
-          <DeleteProductButton id={id} shoppingList={{ id: shoppingListId }} />
-        </div>
-      </article>
-    )
+    <article className={isDeleted ? styles.deletedProduct : styles.product}>
+      <header className={styles.header}>
+        <button onClick={toggleActions} className={styles.name}>
+          {name} <VisuallyHidden> - Show actions</VisuallyHidden>
+        </button>
+        <ProductQuantity defaultQuantity={quantity} id={id} />
+      </header>
+      <div className={actionsClassName}>
+        <DeleteProductButton id={id} shoppingList={{ id: shoppingListId }} />
+      </div>
+    </article>
   );
 }
