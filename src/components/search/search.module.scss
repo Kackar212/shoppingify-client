@@ -1,0 +1,16 @@
+@import "../input/input.module.scss";
+@value color-gray from "styles/colors.scss";
+
+div.search {
+  padding: 0.636875rem;
+  border-radius: 12px;
+  border: 2px solid color-gray;
+}
+
+div.valueContainer {
+  min-height: 36px;
+}
+
+div.placeholder {
+  color: color-gray;
+}

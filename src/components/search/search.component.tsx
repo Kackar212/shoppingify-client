@@ -1,3 +1,4 @@
+import styles from "./search.module.scss";
 import CreatableSelect from "react-select/creatable";
 import { GroupBase, OptionsOrGroups, SingleValue } from "react-select";
 import { Option } from "../../hooks/useSearch";
@@ -9,6 +10,7 @@ interface SearchProps {
   onChange: (option: SingleValue<Option>) => void;
   onCreateOption: (value: string) => void;
   value: SingleValue<Option>;
+  hideDropdownIndicator?: boolean;
 }
 
 const INSTANCE_ID_PREFIX = "__search__";
@@ -20,6 +22,7 @@ export function Search({
   onChange,
   onCreateOption,
   value,
+  hideDropdownIndicator = true,
 }: SearchProps) {
   return (
     <CreatableSelect
@@ -30,6 +33,25 @@ export function Search({
       onCreateOption={onCreateOption}
       value={value}
       isClearable
+      maxMenuHeight={210}
+      styles={{
+        dropdownIndicator: (state) => ({
+          display: hideDropdownIndicator ? "none" : "block",
+        }),
+        indicatorSeparator: () => ({
+          display: hideDropdownIndicator ? "none" : "block",
+        }),
+        menu: (state) => {
+          return {
+            position: "static",
+          };
+        },
+      }}
+      classNames={{
+        control: () => `${styles.search} ${styles.input}`,
+        valueContainer: () => styles.valueContainer,
+        placeholder: () => styles.placeholder,
+      }}
     />
   );
 }
