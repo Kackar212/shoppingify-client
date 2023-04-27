@@ -5,6 +5,7 @@ import {
   FieldValues,
   SubmitHandler,
   UseFormProps,
+  UseFormReturn,
 } from "react-hook-form";
 
 interface FormProps<T extends FieldValues>
@@ -12,15 +13,20 @@ interface FormProps<T extends FieldValues>
   onSubmit?: SubmitHandler<T>;
   children: ReactNode;
   options?: UseFormProps<T>;
+  contextValue?: UseFormReturn<T, any>;
 }
 
 export function Form<T extends FieldValues>({
   onSubmit = () => null,
   children,
   options = {},
+  contextValue,
   ...attrs
 }: FormProps<T>) {
-  const methods = useForm<T>(options);
+  let methods = useForm<T>(options);
+  if (contextValue) {
+    methods = contextValue;
+  }
 
   return (
     <FormProvider {...methods}>
