@@ -18,3 +18,5 @@ export const LIST_STATUS = {
   COMPLETED: "completed",
   CANCELED: "canceled",
 } as const;
+
+export const LOGIN_ROUTE = "/auth/login";
