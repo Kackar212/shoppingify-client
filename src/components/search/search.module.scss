@@ -1,5 +1,5 @@
 @import "../input/input.module.scss";
-@value color-gray from "styles/colors.scss";
+@value color-gray, color-white, color-black, color-tuna from "styles/colors.scss";
 
 div.search {
   padding: 0.636875rem;
@@ -13,4 +13,33 @@ div.valueContainer {
 
 div.placeholder {
   color: color-gray;
+}
+
+div.menuList {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  margin: -1px;
+  padding: 0;
+  border: 1px solid color-gray;
+  transition: background 0.2s, color 0.2s;
+}
+
+div.menu {
+  position: relative;
+}
+
+div.selectedOption {
+  background-color: color-black;
+  color: color-white;
+}
+
+div.focusedOption {
+  text-decoration: underline;
+  background-color: transparent;
+  cursor: pointer;
+  color: color-tuna;
 }

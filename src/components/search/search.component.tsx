@@ -54,13 +54,33 @@ export const Search = React.forwardRef<
         menu: (state) => {
           return {
             position: "static",
+            margin: "1rem 0",
           };
         },
+        option: (state) => ({
+          ...state,
+          wordBreak: "break-word",
+          fontSize: "1.15rem",
+          color: "#828282",
+        }),
       }}
       classNames={{
         control: () => `${styles.search} ${styles.input}`,
         valueContainer: () => styles.valueContainer,
         placeholder: () => styles.placeholder,
+        menuList: () => styles.menuList,
+        menu: () => styles.menu,
+        option: (state) => {
+          if (state.isFocused) {
+            return styles.focusedOption;
+          }
+
+          if (state.isSelected) {
+            return styles.selectedOption;
+          }
+
+          return styles.option;
+        },
       }}
     />
   );
