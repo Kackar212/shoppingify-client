@@ -18,6 +18,11 @@ export function Error({ errorId, name }: ErrorProps) {
       errors={errors}
       name={name}
       render={({ message }) => {
+        console.log(message);
+        if (!message) {
+          return null;
+        }
+
         return (
           <span id={errorId} className={styles.error} aria-live="polite">
             <VisuallyHidden>Error: </VisuallyHidden>
