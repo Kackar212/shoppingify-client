@@ -98,6 +98,10 @@ const baseQueryWithAuthOnServer =
     return await baseQuery(args, api, extraOptions);
   };
 
+const createTag = <TagType>(type: TagType, id: string | number = "LIST") => {
+  return { type, id };
+};
+
 export const api = createApi({
   reducerPath: API_REDUCER_PATH,
   baseQuery: baseQueryWithAuthOnServer(
@@ -145,15 +149,28 @@ export const api = createApi({
       return action.payload[reducerPath];
     }
   },
-  tagTypes: ["shoppingList"],
+  tagTypes: ["shoppingList", "products"],
   endpoints: (builder) => ({
     getProducts: builder.query<ApiResponse<Category[], ApiPagination>, void>({
       query: () => "/products",
+      providesTags: (result) => {
+        if (!result) {
+          return [createTag("products")];
+        }
+
+        return [
+          ...result.data.flatMap(({ products }) =>
+            products.map(({ id }) => createTag("products" as const, id))
+          ),
+          createTag("products"),
+        ];
+      },
     }),
     getProduct: builder.query<ApiResponse<Product<Category>>, number>({
       query(id: number) {
         return `products/${id}`;
       },
+      providesTags: (_result, _error, id) => [{ type: "products", id }],
     }),
     createProduct: builder.mutation<
       ApiResponse<Product<Category>>,
@@ -167,6 +184,7 @@ export const api = createApi({
           ...AUTH,
         };
       },
+      invalidatesTags: [createTag("products")],
     }),
     searchProducts: builder.query<
       ApiResponse<Product<Category>[]>,
@@ -176,6 +194,18 @@ export const api = createApi({
         return {
           url: `products/search/${name}`,
         };
+      },
+      providesTags: (result) => {
+        if (!result) {
+          return [createTag("products")];
+        }
+
+        return [
+          ...result.data.flatMap(({ id }) =>
+            createTag("products" as const, id)
+          ),
+          createTag("products"),
+        ];
       },
     }),
     searchCategories: builder.query<ApiResponse<Category[]>, string>({
