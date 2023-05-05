@@ -238,6 +238,19 @@ export const api = createApi({
         };
       },
     }),
+    logout: builder.mutation<ApiResponse<{}>, void>({
+      query() {
+        return {
+          method: "POST",
+          url: "auth/logout",
+          ...AUTH,
+        };
+      },
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(signout());
+      },
+    }),
     refreshToken: builder.mutation<ApiResponse<User>, void>({
       query() {
         return {
@@ -417,6 +430,7 @@ export const {
   useSearchCategoriesQuery,
   useRegisterMutation,
   useLoginMutation,
+  useLogoutMutation,
   useRefreshTokenMutation,
   useResendActivationMailMutation,
   useResetPasswordMutation,
@@ -436,6 +450,7 @@ export const {
   searchCategories,
   register,
   login,
+  logout,
   refreshToken,
   resendActivationMail,
   resetPassword,
