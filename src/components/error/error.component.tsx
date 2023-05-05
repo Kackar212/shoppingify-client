@@ -18,7 +18,6 @@ export function Error({ errorId, name }: ErrorProps) {
       errors={errors}
       name={name}
       render={({ message }) => {
-        console.log(message);
         if (!message) {
           return null;
         }
