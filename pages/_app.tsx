@@ -11,7 +11,7 @@ const quicksand = Quicksand({
   subsets: ["latin"],
 });
 
-export default function MyApp({ Component, ...rest }: AppProps) {
+export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
 
   return (
