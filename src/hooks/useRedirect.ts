@@ -1,29 +1,28 @@
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useCallback } from "react";
 import { toast } from "react-toastify";
-import { selectAuth } from "../features/slices/auth.slice";
 
-const REDIRECT_TOAST = "REDIRECT_TOAST";
-export function useRedirect(path: string = "/", authRedirect: boolean = false) {
+export const REDIRECT_TOAST = "REDIRECT_TOAST";
+export function useRedirect(path: string = "/") {
   const router = useRouter();
-  const { isLoggedIn } = useSelector(selectAuth);
 
-  const redirect = useCallback((redirectTo: string = path) => {
-    toast.promise(
-      router.push(redirectTo),
-      { pending: "Redirecting..." },
-      { toastId: REDIRECT_TOAST }
-    );
+  const redirect = useCallback(
+    (redirectTo: string = path) => {
+      return new Promise<boolean>((resolve) => {
+        setTimeout(() => {
+          resolve(
+            toast.promise(
+              router.push(redirectTo),
+              { pending: "Redirecting..." },
+              { toastId: REDIRECT_TOAST }
+            )
+          );
+        });
+      });
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (authRedirect && isLoggedIn) {
-      redirect();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, authRedirect]);
+    [path]
+  );
 
   return redirect;
 }
