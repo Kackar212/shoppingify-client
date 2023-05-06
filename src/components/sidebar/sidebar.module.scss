@@ -1,0 +1,54 @@
+@import "../shopping-list/shopping-list.module.scss";
+
+.container {
+  composes: shoppingList;
+  padding: 0;
+  right: 0;
+  transition: transform 0.5s;
+  transform: translateX(100%);
+  overflow: auto;
+  display: block;
+
+  textarea {
+    resize: none;
+  }
+
+  .scrollContainer {
+    padding: 1rem;
+    width: 100%;
+    overflow: auto;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.showContainer {
+  composes: container;
+  transform: translateX(0%);
+}
+
+.back {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 16px;
+
+  .arrow {
+    transition: transform 0.2s;
+    width: 21px;
+  }
+
+  &:hover .arrow {
+    transform: translateX(-2px);
+  }
+}
