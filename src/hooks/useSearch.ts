@@ -63,6 +63,14 @@ export function useSearch<T extends Array<any>>({
     query(transformValue(category));
   }, 200);
 
+  const reset = useCallback(() => {
+    setValue(undefined);
+    setOptions([]);
+
+    query(onMountArg);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onMountArg]);
+
   const onCreateOption = useCallback((category: string) => {
     const newOption = createOption(category);
 
@@ -101,5 +109,6 @@ export function useSearch<T extends Array<any>>({
     onCreateOption,
     options,
     value,
+    reset,
   };
 }
