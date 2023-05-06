@@ -10,6 +10,7 @@ import { AuthFormContent } from "../auth-form-content/auth-form-content.componen
 import { AuthForm } from "../auth-form/auth-form.component";
 import { useRedirect } from "../../hooks/useRedirect";
 import { setCookie } from "cookies-next";
+import { redirect } from "next/dist/server/api-utils";
 
 export const inputs: FormFieldInput[] = [
   { name: "email", label: "Email" },
@@ -27,7 +28,7 @@ export function LoginForm() {
   const [signInUser, { error, isSuccess, isLoading, data }] =
     useLoginMutation();
   const errorMessage = useGetErrorMessage(error);
-  useRedirect("/", true);
+  const redirect = useRedirect("/");
 
   const signIn = useCallback(
     async (data: LoginBody) => {
@@ -35,18 +36,13 @@ export function LoginForm() {
         return;
       }
 
-      toast.promise(signInUser(data), { pending: "Wait" });
+      await toast.promise(signInUser(data), { pending: "Wait" });
+
+      redirect();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isLoading]
   );
-
-  useEffect(() => {
-    if (isSuccess && data) {
-      setCookie("user", data.data);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
 
   return (
     <AuthForm<LoginBody> schema={signInSchema} onSubmit={signIn}>
