@@ -21,7 +21,7 @@ export function useGoTo({ delay = 0, onLeave, href }: UseBackArgs) {
       }
 
       setTimeout(() => {
-        router.push(target.href);
+        router.push(url);
       }, delay);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
