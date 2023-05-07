@@ -1,32 +1,32 @@
 @value color-white, color-maya from "styles/colors.scss";
 
-.container {
-  @mixin button {
-    padding: 1rem;
-    position: relative;
+@mixin button {
+  padding: 1rem;
+  position: relative;
 
-    &:hover {
-      text-decoration: underline;
-    }
+  &:hover {
+    text-decoration: underline;
   }
+}
 
+.container {
   display: flex;
   justify-content: space-evenly;
   padding: 1rem 0;
   background: color-white;
   margin: 0 -1rem;
+}
 
-  .cancelButton {
-    text-align: center;
+button.cancelButton {
+  text-align: center;
 
-    @include button;
-  }
+  @include button;
+}
 
-  .completeButton {
-    background-color: color-maya;
-    color: color-white;
-    border-radius: 12px;
+button.completeButton {
+  background-color: color-maya;
+  color: color-white;
+  border-radius: 12px;
 
-    @include button;
-  }
+  @include button;
 }
