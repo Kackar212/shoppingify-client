@@ -152,7 +152,7 @@ export const api = createApi({
   tagTypes: ["shoppingList", "products"],
   endpoints: (builder) => ({
     getProducts: builder.query<ApiResponse<Category[], ApiPagination>, void>({
-      query: () => "/products",
+      query: () => ({ url: "/products", ...AUTH }),
       providesTags: (result) => {
         if (!result) {
           return [createTag("products")];
@@ -168,7 +168,7 @@ export const api = createApi({
     }),
     getProduct: builder.query<ApiResponse<Product<Category>>, number>({
       query(id: number) {
-        return `products/${id}`;
+        return { url: `products/${id}`, ...AUTH };
       },
       providesTags: (_result, _error, id) => [{ type: "products", id }],
     }),
@@ -193,6 +193,7 @@ export const api = createApi({
       query({ name }) {
         return {
           url: `products/search/${name}`,
+          ...AUTH,
         };
       },
       providesTags: (result) => {
