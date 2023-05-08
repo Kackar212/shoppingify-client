@@ -5,7 +5,7 @@ import {
   useAddProductToListMutation,
   useGetActiveListQuery,
 } from "../../features/api";
-import { useCallback } from "react";
+import { PropsWithChildren, useCallback } from "react";
 import { Button } from "../button/button.component";
 import { useMutationDebounce } from "../../hooks/useDebounceMutation";
 import { toast } from "react-toastify";
@@ -13,9 +13,16 @@ import { toast } from "react-toastify";
 interface AddProductButtonProps {
   id: number;
   name: string;
+  className: string;
 }
 
-export function AddProductButton({ name, id }: AddProductButtonProps) {
+const MESSAGE_TOAST = "MESSAGE_TOAST";
+export function AddProductButton({
+  name,
+  id,
+  className = styles.button,
+  children,
+}: PropsWithChildren<AddProductButtonProps>) {
   const [addProductToList, { isLoading }] = useMutationDebounce(
     useAddProductToListMutation
   );
@@ -35,7 +42,9 @@ export function AddProductButton({ name, id }: AddProductButtonProps) {
     );
 
     if (isProductAlreadyInList) {
-      return toast.error("Product is already in your list!");
+      return toast.error("Product is already in your list!", {
+        toastId: MESSAGE_TOAST,
+      });
     }
 
     addProductToList(id);
@@ -45,11 +54,11 @@ export function AddProductButton({ name, id }: AddProductButtonProps) {
   return (
     <Button
       type="button"
-      className={styles.button}
+      className={className}
       onClick={addProduct}
       isLoading={isLoading}
     >
-      <PlusIcon color="#000" />
+      {!children ? <PlusIcon color="#000" /> : children}
       <VisuallyHidden>Add {name} to list</VisuallyHidden>
     </Button>
   );
