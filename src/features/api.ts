@@ -209,6 +209,16 @@ export const api = createApi({
         ];
       },
     }),
+    deleteProduct: builder.mutation<ApiResponse<Product<Category>>, number>({
+      query(id) {
+        return {
+          url: `products/${id}`,
+          method: "DELETE",
+          ...AUTH,
+        };
+      },
+      invalidatesTags: (_result, _error, id) => [createTag("products", id)],
+    }),
     searchCategories: builder.query<ApiResponse<Category[]>, string>({
       query(name) {
         return {
@@ -428,6 +438,7 @@ export const {
   useGetProductQuery,
   useCreateProductMutation,
   useSearchProductsQuery,
+  useDeleteProductMutation,
   useSearchCategoriesQuery,
   useRegisterMutation,
   useLoginMutation,
@@ -448,6 +459,7 @@ export const {
   getProduct,
   createProduct,
   searchProducts,
+  deleteProduct,
   searchCategories,
   register,
   login,
