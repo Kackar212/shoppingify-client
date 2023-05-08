@@ -5,9 +5,18 @@ import { Link } from "../link/link.component";
 import { ArrowIcon } from "../arrow-icon/arrow-icon.component";
 import clsx from "clsx";
 import styles from "./sidebar.module.scss";
+import { useRouter } from "next/router";
 
-export function Sidebar({ children }: PropsWithChildren) {
+interface SidebarProps {
+  isClosed?: boolean;
+}
+
+export function Sidebar({
+  children,
+  isClosed,
+}: PropsWithChildren<SidebarProps>) {
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
   const { href, goTo } = useGoTo({
     delay: 500,
     onLeave: () => setIsMounted(false),
@@ -15,6 +24,22 @@ export function Sidebar({ children }: PropsWithChildren) {
   const className = clsx(styles.container, {
     [styles.showContainer]: isMounted,
   });
+
+  useEffect(() => {
+    if (!isClosed) {
+      return;
+    }
+
+    setIsMounted(false);
+    const timeout = setTimeout(() => {
+      router.push(router.route);
+    }, 500);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isClosed]);
 
   useEffect(() => {
     setIsMounted(true);
