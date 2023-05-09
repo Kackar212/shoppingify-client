@@ -218,6 +218,24 @@ export const api = createApi({
         };
       },
       invalidatesTags: (_result, _error, id) => [createTag("products", id)],
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(decreaseTotalItems());
+
+          dispatch(
+            api.util.updateQueryData("getActiveList", undefined, (draft) => {
+              draft.data.products = draft.data.products.map((product) => {
+                if (product.product.id === id) {
+                  product.isDeleted = true;
+                }
+
+                return product;
+              });
+            })
+          );
+        } catch {}
+      },
     }),
     searchCategories: builder.query<ApiResponse<Category[]>, string>({
       query(name) {
