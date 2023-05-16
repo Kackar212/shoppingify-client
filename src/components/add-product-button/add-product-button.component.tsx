@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 interface AddProductButtonProps {
   id: number;
   name: string;
-  className: string;
+  className?: string;
 }
 
 const MESSAGE_TOAST = "MESSAGE_TOAST";
