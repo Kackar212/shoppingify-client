@@ -2,8 +2,9 @@ import styles from "./search.module.scss";
 import CreatableSelect from "react-select/creatable";
 import { GroupBase, OptionsOrGroups, SingleValue } from "react-select";
 import { Option } from "../../hooks/useSearch";
-import React from "react";
+import React, { useCallback } from "react";
 import Select from "react-select/dist/declarations/src/Select";
+import { CreatableAdditionalProps } from "react-select/dist/declarations/src/useCreatable";
 
 interface SearchProps {
   name: string;
@@ -11,11 +12,21 @@ interface SearchProps {
   options: OptionsOrGroups<Option, GroupBase<Option>>;
   onChange: (option: SingleValue<Option>) => void;
   onCreateOption: (value: string) => void;
-  value?: unknown;
+  value?: SingleValue<Option>;
   hideDropdownIndicator?: boolean;
+  isCreatable?: boolean;
+  isValidNewOption: CreatableAdditionalProps<
+    Option,
+    GroupBase<Option>
+  >["isValidNewOption"];
 }
 
 const INSTANCE_ID_PREFIX = "__search__";
+
+type IsValidNewOption = CreatableAdditionalProps<
+  Option,
+  GroupBase<Option>
+>["isValidNewOption"];
 
 export const Search = React.forwardRef<
   Select<any, false, GroupBase<any>>,
@@ -29,9 +40,23 @@ export const Search = React.forwardRef<
     onCreateOption,
     value,
     hideDropdownIndicator = true,
+    isCreatable = true,
+    isValidNewOption: shouldCreateNewOption,
   },
   ref
 ) {
+  const isValidNewOption = useCallback<NonNullable<IsValidNewOption>>(
+    (...args) => {
+      if (shouldCreateNewOption) {
+        return shouldCreateNewOption(...args);
+      }
+
+      return isCreatable;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <CreatableSelect
       ref={ref}
@@ -44,6 +69,7 @@ export const Search = React.forwardRef<
       isClearable
       maxMenuHeight={210}
       placeholder={`Enter a ${name.toLowerCase()}`}
+      isValidNewOption={isValidNewOption}
       styles={{
         dropdownIndicator: (state) => ({
           display: hideDropdownIndicator ? "none" : "block",
