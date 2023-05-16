@@ -67,7 +67,7 @@ export function useSearch<T extends Array<any>>({
     setValue(undefined);
     setOptions([]);
 
-    query(onMountArg);
+    query(transformValue(onMountArg));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onMountArg]);
 
