@@ -26,6 +26,7 @@ interface SearchProps {
     false,
     GroupBase<Option>
   >["components"];
+  isMenuStatic?: boolean;
 }
 
 const INSTANCE_ID_PREFIX = "__search__";
@@ -50,6 +51,7 @@ export const Search = React.forwardRef<
     isCreatable = true,
     isValidNewOption: shouldCreateNewOption,
     components,
+    isMenuStatic = true,
   },
   ref
 ) {
@@ -88,7 +90,8 @@ export const Search = React.forwardRef<
         }),
         menu: (state) => {
           return {
-            position: "static",
+            ...state,
+            position: isMenuStatic ? "static" : "absolute",
             margin: "1rem 0",
           };
         },
@@ -104,7 +107,6 @@ export const Search = React.forwardRef<
         valueContainer: () => styles.valueContainer,
         placeholder: () => styles.placeholder,
         menuList: () => styles.menuList,
-        menu: () => styles.menu,
         option: (state) => {
           if (state.isFocused) {
             return styles.focusedOption;
