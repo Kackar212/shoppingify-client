@@ -17,7 +17,7 @@ interface SearchProps {
   value?: SingleValue<Option>;
   hideDropdownIndicator?: boolean;
   isCreatable?: boolean;
-  isValidNewOption: CreatableAdditionalProps<
+  isValidNewOption?: CreatableAdditionalProps<
     Option,
     GroupBase<Option>
   >["isValidNewOption"];
