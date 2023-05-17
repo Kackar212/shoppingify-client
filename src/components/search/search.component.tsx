@@ -3,7 +3,9 @@ import CreatableSelect from "react-select/creatable";
 import { GroupBase, OptionsOrGroups, SingleValue } from "react-select";
 import { Option } from "../../hooks/useSearch";
 import React, { useCallback } from "react";
-import Select from "react-select/dist/declarations/src/Select";
+import Select, {
+  PublicBaseSelectProps,
+} from "react-select/dist/declarations/src/Select";
 import { CreatableAdditionalProps } from "react-select/dist/declarations/src/useCreatable";
 
 interface SearchProps {
@@ -19,6 +21,11 @@ interface SearchProps {
     Option,
     GroupBase<Option>
   >["isValidNewOption"];
+  components?: PublicBaseSelectProps<
+    Option,
+    false,
+    GroupBase<Option>
+  >["components"];
 }
 
 const INSTANCE_ID_PREFIX = "__search__";
@@ -42,6 +49,7 @@ export const Search = React.forwardRef<
     hideDropdownIndicator = true,
     isCreatable = true,
     isValidNewOption: shouldCreateNewOption,
+    components,
   },
   ref
 ) {
@@ -70,6 +78,7 @@ export const Search = React.forwardRef<
       maxMenuHeight={210}
       placeholder={`Enter a ${name.toLowerCase()}`}
       isValidNewOption={isValidNewOption}
+      components={components}
       styles={{
         dropdownIndicator: (state) => ({
           display: hideDropdownIndicator ? "none" : "block",
