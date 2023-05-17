@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { Link } from "../link/link.component";
 
 export function SelectProductOption(
-  props: OptionProps<Required<Option>, false, GroupBase<Required<Option>>>
+  props: OptionProps<Option, false, GroupBase<Option>>
 ) {
   const {
     clearValue,
