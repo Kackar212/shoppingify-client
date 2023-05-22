@@ -25,7 +25,7 @@ type GetServerSideProps = <
 }) => Promise<GetServerSidePropsResult<any>>;
 
 export const withAuth =
-  (getServerSideProps: GetServerSideProps) =>
+  (getServerSideProps?: GetServerSideProps) =>
   <S extends AppStore>(store: S) =>
   async <C extends GetServerSidePropsContext<ParsedUrlQuery, PreviewData>>(
     context: C
