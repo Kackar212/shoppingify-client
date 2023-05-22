@@ -25,6 +25,7 @@ import { signin, signout } from "./slices/auth.slice";
 import { UpdateListProductBody } from "../common/interfaces/update-list-product-body.interface";
 import { addProduct, decreaseTotalItems } from "./slices/shopping-list.slice";
 import type { IncomingMessage } from "http";
+import { PaginationQuery } from "../common/interfaces/pagination-query.interface";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -236,6 +237,23 @@ export const api = createApi({
           );
         } catch {}
       },
+    }),
+    getProductsByCategory: builder.query<
+      ApiResponse<{ category: Category; products: Product<Category>[] }>,
+      { id: number } & PaginationQuery
+    >({
+      query({ id, take, page }) {
+        const query = new URLSearchParams({
+          take: String(take),
+          page: String(page),
+        });
+
+        return {
+          url: `/products/category/${id}?${query.toString()}`,
+          ...AUTH,
+        };
+      },
+      providesTags: [createTag("products")],
     }),
     searchCategories: builder.query<ApiResponse<Category[]>, string>({
       query(name) {
@@ -457,6 +475,7 @@ export const {
   useCreateProductMutation,
   useSearchProductsQuery,
   useDeleteProductMutation,
+  useGetProductsByCategoryQuery,
   useSearchCategoriesQuery,
   useRegisterMutation,
   useLoginMutation,
@@ -478,6 +497,7 @@ export const {
   createProduct,
   searchProducts,
   deleteProduct,
+  getProductsByCategory,
   searchCategories,
   register,
   login,
