@@ -20,3 +20,4 @@ export const LIST_STATUS = {
 } as const;
 
 export const LOGIN_ROUTE = "/auth/login";
+export const PAGINATION_TAKE = 50;
