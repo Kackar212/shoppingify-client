@@ -239,7 +239,10 @@ export const api = createApi({
       },
     }),
     getProductsByCategory: builder.query<
-      ApiResponse<{ category: Category; products: Product<Category>[] }>,
+      ApiResponse<
+        { category: Category; products: Product<Category>[] },
+        ApiPagination
+      >,
       { id: number } & PaginationQuery
     >({
       query({ id, take, page }) {
