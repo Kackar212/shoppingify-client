@@ -51,6 +51,10 @@ export interface UsePaginationResult {
   isLastPage: boolean;
   isFirstPage: boolean;
   isCurrent: (page: number) => boolean;
+  lastPage: Page;
+  firstPage: Page;
+  previousPage: Page;
+  nextPage: Page;
 }
 
 function getCurrentPageNumber(page: number, numberOfPages: number) {
@@ -101,7 +105,6 @@ export function usePagination({
     };
 
     const numberOfPages = Math.ceil(total / take);
-
     const currentPage = getCurrentPageNumber(page, numberOfPages);
     const currentPageIndex = currentPage - 1;
     const length = sides.left + sides.right + 1;
