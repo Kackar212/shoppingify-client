@@ -107,7 +107,7 @@ export function usePagination({
     const numberOfPages = Math.ceil(total / take);
     const currentPage = getCurrentPageNumber(page, numberOfPages);
     const currentPageIndex = currentPage - 1;
-    const length = sides.left + sides.right + 1;
+    const length = Math.min(sides.left + sides.right + 1, numberOfPages);
     const result = {
       page: currentPage,
       total,
@@ -131,7 +131,7 @@ export function usePagination({
       0
     );
     let start = result.page - sides.left - rightDiff;
-    start = start > 0 ? start - 1 : start;
+    start = start > 0 ? start - 1 : 0;
 
     const pages = Array.from({ length }, (_, index) =>
       transformPage(index + start + 1, currentPage)
