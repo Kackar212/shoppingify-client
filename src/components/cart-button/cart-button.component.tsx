@@ -4,6 +4,7 @@ import { VisuallyHidden } from "../visually-hidden/visually-hidden.component";
 import { useDispatch } from "react-redux";
 import { toggle } from "../../features/slices/shopping-list.slice";
 import { useCallback } from "react";
+import cartIcon from "/public/assets/images/shopping-cart.svg";
 
 interface CartButtonProps {
   items?: number;
@@ -23,12 +24,7 @@ export function CartButton({ items }: CartButtonProps) {
       className={styles.button}
       onClick={toggleShoppingList}
     >
-      <Image
-        src="/assets/shopping-cart.svg"
-        alt="Open items list"
-        width={20}
-        height={20}
-      />
+      <Image src={cartIcon} alt="Open items list" width={20} height={20} />
       {!!items && (
         <div className={styles.items}>
           <VisuallyHidden> - items: </VisuallyHidden>

@@ -1,12 +1,13 @@
 import Image from "next/image";
 import styles from "./create-product.module.scss";
 import Link from "next/link";
+import bottleIcon from "/public/assets/images/source.svg";
 
 export function CreateProduct() {
   return (
     <article className={styles.container}>
       <Image
-        src="/assets/source.svg"
+        src={bottleIcon}
         alt=""
         width={81}
         height={135}

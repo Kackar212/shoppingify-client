@@ -5,11 +5,16 @@ import { NavListItem } from "../nav-list-item/nav-list-item.component";
 import { useSelector } from "react-redux";
 import { selectShoppingList } from "../../features/slices/shopping-list.slice";
 import { selectAuth } from "../../features/slices/auth.slice";
+import homepageIcon from "/public/assets/images/list.svg";
+import historyPageIcon from "/public/assets/images/undo.svg";
+import statisticsPageIcon from "/public/assets/images/stats.png";
+import logo from "/public/assets/images/logo.svg";
+import logoutPageIcon from "/public/assets/images/logout.svg";
 
 const navigationItems = [
   {
     icon: {
-      src: "/assets/list.svg",
+      src: homepageIcon,
       alt: "Go to home page",
     },
     href: "/",
@@ -17,7 +22,7 @@ const navigationItems = [
   },
   {
     icon: {
-      src: "/assets/undo.svg",
+      src: historyPageIcon,
       alt: "Go to history page",
     },
     href: "/history",
@@ -25,7 +30,7 @@ const navigationItems = [
   },
   {
     icon: {
-      src: "/assets/stats.png",
+      src: statisticsPageIcon,
       alt: "Go to statistics page",
     },
     href: "/statistics",
@@ -40,12 +45,7 @@ export function Navigation() {
   return (
     <header className={styles.header}>
       <h1 className={styles.logo}>
-        <Image
-          src="/assets/logo.svg"
-          alt="Shoppingify"
-          width={40}
-          height={40}
-        />
+        <Image src={logo} alt="Shoppingify" width={40} height={40} />
       </h1>
       <nav>
         <ul className={styles.list}>
@@ -59,7 +59,7 @@ export function Navigation() {
           ))}
           {isLoggedIn && (
             <NavListItem
-              icon={{ src: "/assets/logout.svg", alt: "Sign out" }}
+              icon={{ src: logoutPageIcon, alt: "Sign out" }}
               href="/logout"
               tipLabel="sign out"
             />
