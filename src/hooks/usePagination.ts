@@ -130,19 +130,23 @@ export function usePagination({
       rightDirection - (numberOfPages - result.page),
       0
     );
-    const start = result.page - sides.left - rightDiff;
+    let start = result.page - sides.left - rightDiff;
+    start = start > 0 ? start - 1 : start;
 
     const pages = Array.from({ length }, (_, index) =>
-      transformPage(index + (start > 0 ? start - 1 : start) + 1, currentPage)
+      transformPage(index + start + 1, currentPage)
     );
+
+    const firstPage = transformPage(1, currentPage);
+    const lastPage = transformPage(numberOfPages, currentPage);
 
     return {
       ...result,
       pages,
-      firstPage: transformPage(1, currentPage),
-      lastPage: transformPage(numberOfPages, currentPage),
-      nextPage: pages[currentPageIndex + 1],
-      previousPage: pages[currentPageIndex - 1],
+      firstPage,
+      lastPage,
+      nextPage: pages[currentPage - start] || lastPage,
+      previousPage: pages[currentPageIndex - start - 1] || firstPage,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total, page, take, state]);
