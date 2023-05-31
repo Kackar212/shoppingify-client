@@ -9,7 +9,7 @@ interface UseBackArgs {
 
 export function useGoTo({ delay = 0, onLeave, href }: UseBackArgs) {
   const router = useRouter();
-  const url = href || router.route;
+  const url = href || { href: router.route, query: router.query };
 
   const goTo: MouseEventHandler<HTMLElement> = useCallback(
     (e) => {
