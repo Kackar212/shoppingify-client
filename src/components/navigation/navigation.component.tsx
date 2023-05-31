@@ -45,7 +45,7 @@ export function Navigation() {
   return (
     <header className={styles.header}>
       <h1 className={styles.logo}>
-        <Image src={logo} alt="Shoppingify" width={40} height={40} />
+        <Image src={logo} alt="Shoppingify" priority />
       </h1>
       <nav>
         <ul className={styles.list}>
