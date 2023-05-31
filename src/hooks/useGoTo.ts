@@ -14,7 +14,6 @@ export function useGoTo({ delay = 0, onLeave, href }: UseBackArgs) {
   const goTo: MouseEventHandler<HTMLElement> = useCallback(
     (e) => {
       e.preventDefault();
-      const target = e.target as HTMLAnchorElement;
 
       if (onLeave) {
         onLeave(e);
