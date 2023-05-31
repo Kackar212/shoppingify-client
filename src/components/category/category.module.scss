@@ -1,0 +1,31 @@
+@import "../products/products.module.scss";
+
+.container {
+  padding: 1rem 3.125rem;
+  position: relative;
+}
+
+.categoryName {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  column-gap: 6px;
+  margin: 1rem 0;
+}
+
+.paginator {
+  position: relative;
+}
+
+.loader {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: calc(50% + 0px);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  z-index: 1;
+}
