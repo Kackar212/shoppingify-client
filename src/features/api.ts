@@ -150,7 +150,7 @@ export const api = createApi({
       return action.payload[reducerPath];
     }
   },
-  tagTypes: ["shoppingList", "products"],
+  tagTypes: ["shoppingList", "products", "shoppingLists"],
   endpoints: (builder) => ({
     getProducts: builder.query<ApiResponse<Category[], ApiPagination>, void>({
       query: () => ({ url: "/products", ...AUTH }),
@@ -422,7 +422,7 @@ export const api = createApi({
           ...AUTH,
         };
       },
-      invalidatesTags: ["shoppingList"],
+      invalidatesTags: ["shoppingList", "shoppingLists"],
     }),
     saveList: builder.mutation<ApiResponse<ShoppingList>, string>({
       query(name) {
@@ -469,6 +469,18 @@ export const api = createApi({
         } catch {}
       },
     }),
+    getLists: builder.query<
+      ApiResponse<Array<[string[], ShoppingList[]]>, ApiPagination>,
+      void
+    >({
+      query() {
+        return {
+          url: "/shopping-list",
+          ...AUTH,
+        };
+      },
+      providesTags: ["shoppingLists"],
+    }),
   }),
 });
 
@@ -492,6 +504,7 @@ export const {
   useUpdateListStatusMutation,
   useSaveListMutation,
   useUpdateListProductMutation,
+  useGetListsQuery,
 } = api;
 
 export const {
@@ -514,4 +527,5 @@ export const {
   updateListStatus,
   saveList,
   updateListProduct,
+  getLists,
 } = api.endpoints;
