@@ -1,41 +1,6 @@
 @import "styles/variables.scss";
 @value color-white, color-orange from "styles/colors.scss";
 
-// .container {
-//   width: calc(100% - (40px + 1.36rem));
-//   position: fixed;
-//   height: 100vh;
-//   top: 0;
-//   right: -350px;
-//   background: #fff;
-//   z-index: 1;
-//   max-width: 350px;
-//   transition: right 0.5s;
-//   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
-
-//   textarea {
-//     resize: none;
-//   }
-
-//   .scrollContainer {
-//     padding: 1rem;
-//     width: 100%;
-//     overflow: auto;
-//     max-height: 100vh;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-
-//     // div.menu {
-//     &::-webkit-scrollbar {
-//       display: none;
-//     }
-//     -ms-overflow-style: none;
-//     scrollbar-width: none;
-//     // }
-//   }
-// }
-
 .form {
   display: flex;
   flex-direction: column;
