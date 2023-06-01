@@ -9,7 +9,7 @@ interface UseBackArgs {
 
 export function useGoTo({ delay = 0, onLeave, href }: UseBackArgs) {
   const router = useRouter();
-  const url = href || { href: router.route, query: router.query };
+  const path = href || { href: router.route, query: router.query };
 
   const goTo: MouseEventHandler<HTMLElement> = useCallback(
     (e) => {
@@ -20,12 +20,12 @@ export function useGoTo({ delay = 0, onLeave, href }: UseBackArgs) {
       }
 
       setTimeout(() => {
-        router.push(url);
+        router.push(path);
       }, delay);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [delay]
   );
 
-  return { href: url, goTo };
+  return { href: path, goTo };
 }
