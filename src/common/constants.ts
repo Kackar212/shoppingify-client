@@ -21,3 +21,6 @@ export const LIST_STATUS = {
 
 export const LOGIN_ROUTE = "/auth/login";
 export const PAGINATION_TAKE = 50;
+
+export const CANCELED_BADGE_COLOR = "#eb5757";
+export const COMPLETED_BADGE_COLOR = "#56ccf2";
