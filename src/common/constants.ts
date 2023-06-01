@@ -10,6 +10,7 @@ export const API_SUCCESS = {
   LOGGED_IN: "You have logged in!",
   ACCOUNT_CREATED: "Your account has been created! Check your e-mail!",
   PASSWORD_RESETED: "New password was sent to your email!",
+  PRODUCT_CREATED: "New product has been created!",
 };
 
 export const VALIDATION_MODE_ALL = "all";

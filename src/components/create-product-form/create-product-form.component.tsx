@@ -13,9 +13,10 @@ import { Button } from "../button/button.component";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { VALIDATION_MODE_ALL } from "../../common/constants";
+import { API_SUCCESS, VALIDATION_MODE_ALL } from "../../common/constants";
 import { Error } from "../error/error.component";
 import { Sidebar } from "../sidebar/sidebar.component";
+import { useGetErrorMessage } from "../../hooks/useGetErrorMessage";
 
 const inputs: Array<FormFieldInput> = [
   {
@@ -51,12 +52,14 @@ const createProductSchema = yup
 
 export function CreateProductForm() {
   const [searchCategoriesByName, queryState] = searchCategories.useLazyQuery();
-  const [createProduct, { isLoading }] = useCreateProductMutation();
+  const [createProduct, { isLoading, isSuccess, error }] =
+    useCreateProductMutation();
   const searchProps = useSearch({ query: searchCategoriesByName, queryState });
   const formContextValue = useForm<CreateProductBody>({
     resolver: yupResolver(createProductSchema),
     mode: VALIDATION_MODE_ALL,
   });
+  const errorMessage = useGetErrorMessage(error);
 
   useEffect(() => {
     const isDirty = !!formContextValue.formState.dirtyFields.category;
@@ -90,6 +93,12 @@ export function CreateProductForm() {
         contextValue={formContextValue}
       >
         <h2>Add a new product</h2>
+        <span
+          aria-live="polite"
+          className={isSuccess ? styles.success : styles.error}
+        >
+          {isSuccess ? API_SUCCESS.PRODUCT_CREATED : errorMessage}
+        </span>
         {inputs.map(({ name, label, required, type }) => (
           <FormField
             key={name}

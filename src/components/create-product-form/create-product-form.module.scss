@@ -1,5 +1,5 @@
 @import "styles/variables.scss";
-@value color-white, color-orange from "styles/colors.scss";
+@value color-white, color-orange, color-green, color-red from "styles/colors.scss";
 
 .form {
   display: flex;
@@ -25,4 +25,12 @@ button.submit {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.success {
+  color: color-green;
+}
+
+.error {
+  color: color-red;
 }
