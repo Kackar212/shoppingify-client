@@ -477,11 +477,11 @@ export const api = createApi({
     }),
     getLists: builder.query<
       ApiResponse<Array<[string[], ShoppingList[]]>, ApiPagination>,
-      void
+      PaginationQuery
     >({
-      query() {
+      query({ page, take }) {
         return {
-          url: "/shopping-list",
+          url: `/shopping-list?page=${page}&take=${take}`,
           ...AUTH,
         };
       },
