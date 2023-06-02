@@ -41,3 +41,5 @@ export type TextFieldProps = (MultiLineInput | SingleLineInput) & {
   name: string;
   onChange?: ChangeHandler;
 };
+
+export type QueryPage = { page: string[] };
