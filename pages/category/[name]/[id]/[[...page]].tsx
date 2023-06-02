@@ -11,8 +11,8 @@ import { PrivatePage } from "../../../../src/components/private-page/private-pag
 import { usePagination } from "../../../../src/hooks/usePagination";
 import { getQuery } from "../../../../src/common/utils/get-query";
 import { Category } from "../../../../src/components/category/category.component";
-import { isUndefined } from "lodash";
-import { getPage } from "../../../../src/common/utils/get-page";
+import { prepareQueryPage } from "../../../../src/common/utils/prepare-query-page";
+import { getPaginationRedirect } from "../../../../src/common/utils/get-pagination-redirect";
 
 interface CategoryPageProps extends PaginationQuery {
   id: number;
@@ -76,15 +76,14 @@ type Query = { page: string[]; id: string; name: string };
 export const getServerSideProps = wrapper.getServerSideProps(
   withAuth(async ({ store, context }) => {
     const query = getQuery(
-      ({ page, id, name }: Query) => ({
-        page: isUndefined(page) ? 1 : parseInt(page[0], 10),
+      ({ page = [], id, name }: Query) => ({
+        page: parseInt(page[0]),
         id: parseInt(id, 10),
         name,
       }),
       context
     );
-
-    const page = query.page < 1 ? 1 : query.page;
+    const page = prepareQueryPage(query.page);
 
     try {
       const { pagination } = await store
@@ -97,27 +96,24 @@ export const getServerSideProps = wrapper.getServerSideProps(
         )
         .unwrap();
 
-      const redirectDestinationPage: number = getPage(pagination, query.page);
-      if (redirectDestinationPage !== query.page) {
-        return {
-          redirect: {
-            destination: `/category/${query.name}/${query.id}/${redirectDestinationPage}`,
-            permanent: false,
-          },
-        };
-      }
+      const redirect = getPaginationRedirect(
+        pagination,
+        query.page,
+        `/category/${query.name}/${query.id}`
+      );
+
+      return {
+        redirect,
+        props: {
+          id: query.id,
+          page,
+          take: PAGINATION_TAKE,
+        },
+      };
     } catch (e) {
       return {
         notFound: true,
       };
     }
-
-    return {
-      props: {
-        id: query.id,
-        page: query.page,
-        take: PAGINATION_TAKE,
-      },
-    };
   })
 );
