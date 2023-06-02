@@ -8,7 +8,7 @@ export function getPaginationRedirect(
 ) {
   const redirectDestinationPage: number = getPage(pagination, page);
 
-  if (redirectDestinationPage === page) {
+  if (!page || redirectDestinationPage === page) {
     return;
   }
 
