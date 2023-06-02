@@ -152,8 +152,14 @@ export const api = createApi({
   },
   tagTypes: ["shoppingList", "products", "shoppingLists"],
   endpoints: (builder) => ({
-    getProducts: builder.query<ApiResponse<Category[], ApiPagination>, void>({
-      query: () => ({ url: "/products", ...AUTH }),
+    getProducts: builder.query<
+      ApiResponse<Category[], ApiPagination>,
+      PaginationQuery
+    >({
+      query: ({ page, take }) => ({
+        url: `/products?page=${page}&take=${take}`,
+        ...AUTH,
+      }),
       providesTags: (result) => {
         if (!result) {
           return [createTag("products")];

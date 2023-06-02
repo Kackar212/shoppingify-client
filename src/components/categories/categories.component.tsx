@@ -1,25 +1,33 @@
-import { useRouter } from "next/router";
 import { Loader } from "../loader/loader.component";
 import { Products } from "../products/products.component";
 import { useGetProductsQuery } from "../../features/api";
-import { skipToken } from "@reduxjs/toolkit/dist/query";
 import styles from "./categories.module.scss";
+import { Paginator } from "../paginator/paginator.component";
+import { usePagination } from "../../hooks/usePagination";
 
-export function Categories() {
-  const router = useRouter();
+interface CategoriesProps {
+  take: number;
+  page: number;
+}
 
-  const { categories, isFetching } = useGetProductsQuery(
-    router.isFallback ? skipToken : undefined,
+export function Categories({ take, page }: CategoriesProps) {
+  const { categories, isFetching, pagination } = useGetProductsQuery(
+    { take, page },
     {
-      refetchOnMountOrArgChange: 900,
       selectFromResult(result) {
         return {
           categories: result.data?.data,
+          pagination: result.data?.pagination,
           ...result,
         };
       },
     }
   );
+  const paginationData = usePagination({
+    page,
+    take,
+    total: pagination?.total || 0,
+  });
 
   if (!categories) {
     return (
@@ -44,6 +52,7 @@ export function Categories() {
         />
       ))}
       {!categories.length && <p className={styles.noItems}>No items!</p>}
+      <Paginator {...paginationData} />
     </div>
   );
 }
