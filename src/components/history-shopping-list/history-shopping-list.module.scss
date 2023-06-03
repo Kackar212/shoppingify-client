@@ -1,0 +1,89 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  padding: 1.3125rem;
+  box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  width: 100%;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+  position: relative;
+  max-width: 35rem;
+
+  &:focus-within .link:focus {
+    outline: none;
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 1);
+  }
+}
+
+.list:hover {
+  box-shadow: 3px 3px 12px 3px rgba(0, 0, 0, 0.2);
+
+  & .link {
+    text-decoration: none;
+  }
+}
+
+.column {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.link {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin: 1rem 0;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.name {
+  font-size: 1rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.statusBadge {
+  color: var(--badge-color);
+  display: inline-flex;
+  padding: 5px 0.58em;
+  border: 1px solid;
+  border-radius: 8px;
+  line-height: 1;
+  margin-right: 2em;
+}
+
+.date {
+  line-height: 1.25em;
+  margin-right: 0.5em;
+}
+
+.icon {
+  transform: scale(0.835);
+}
+
+.date,
+.icon {
+  color: #c1c1c4;
+  fill: #c1c1c4;
+}
