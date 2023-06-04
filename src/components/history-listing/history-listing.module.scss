@@ -1,0 +1,44 @@
+@import "styles/variables.scss";
+
+.article {
+  max-width: calc(2560px - $navigation-width);
+  margin: 0 auto;
+  padding-left: 0.5rem;
+
+  @media (min-width: 990px) {
+    padding-left: 3.125rem;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+}
+
+.heading {
+  margin: 0 0 1rem 0;
+}
+
+.lists {
+  --row-items: 1;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(var(--row-items), 1fr);
+
+  @media (min-width: 990px) {
+    --row-items: 2;
+  }
+
+  @media (min-width: 1440px) {
+    --row-items: 3;
+  }
+
+  @media (min-width: 1920px) {
+    --row-items: 4;
+  }
+
+  @media (min-width: 2560px) {
+    --row-items: 5;
+  }
+}
