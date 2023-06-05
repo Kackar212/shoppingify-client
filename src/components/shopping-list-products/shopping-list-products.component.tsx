@@ -7,6 +7,7 @@ import { ShoppingListProduct as IShoppingListProduct } from "../../common/interf
 import { useMemo } from "react";
 import { selectShoppingList } from "../../features/slices/shopping-list.slice";
 import { useSelector } from "react-redux";
+import noItems from "public/assets/images/no-item.svg";
 
 export function ShoppingListProducts() {
   const { data: shoppingList } = useGetActiveListQuery(undefined, {
@@ -54,14 +55,7 @@ export function ShoppingListProducts() {
       {!hasProducts ? (
         <div className={styles.noItems}>
           <span className={styles.noItemsText}>No items!</span>
-          <Image
-            src="/assets/no-item.svg"
-            alt=""
-            width="180"
-            height="150"
-            className={styles.noItemsImage}
-            priority
-          />
+          <Image src={noItems} alt="" className={styles.noItemsImage} />
         </div>
       ) : (
         <div className={styles.products}>
