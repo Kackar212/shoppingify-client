@@ -99,7 +99,7 @@ export function usePagination({
       right: rightDirection,
     };
 
-    const numberOfPages = Math.ceil(total / take);
+    const numberOfPages = Math.max(1, Math.ceil(total / take));
     const currentPage = getCurrentPageNumber(page, numberOfPages);
     const currentPageIndex = currentPage - 1;
     const length = Math.min(sides.left + sides.right + 1, numberOfPages);
