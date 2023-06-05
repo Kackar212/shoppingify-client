@@ -1,13 +1,18 @@
 @import "styles/variables.scss";
 
 .header {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
   width: $navigation-width;
-  padding: 1em 0.66em;
-  align-items: center;
+
+  .container {
+    width: $navigation-width;
+    padding: 1em 0.66em;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    position: fixed;
+  }
 
   .list {
     height: 10.3125rem;

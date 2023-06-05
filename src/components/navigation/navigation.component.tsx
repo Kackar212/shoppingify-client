@@ -44,29 +44,31 @@ export function Navigation() {
 
   return (
     <header className={styles.header}>
-      <h1 className={styles.logo}>
-        <Image src={logo} alt="Shoppingify" priority />
-      </h1>
-      <nav>
-        <ul className={styles.list}>
-          {navigationItems.map(({ icon, href, tipLabel }) => (
-            <NavListItem
-              key={href}
-              icon={icon}
-              href={href}
-              tipLabel={tipLabel}
-            />
-          ))}
-          {isLoggedIn && (
-            <NavListItem
-              icon={{ src: logoutPageIcon, alt: "Sign out" }}
-              href="/logout"
-              tipLabel="sign out"
-            />
-          )}
-        </ul>
-      </nav>
-      <CartButton items={shoppingList.totalItems} />
+      <div className={styles.container}>
+        <h1 className={styles.logo}>
+          <Image src={logo} alt="Shoppingify" priority />
+        </h1>
+        <nav>
+          <ul className={styles.list}>
+            {navigationItems.map(({ icon, href, tipLabel }) => (
+              <NavListItem
+                key={href}
+                icon={icon}
+                href={href}
+                tipLabel={tipLabel}
+              />
+            ))}
+            {isLoggedIn && (
+              <NavListItem
+                icon={{ src: logoutPageIcon, alt: "Sign out" }}
+                href="/logout"
+                tipLabel="sign out"
+              />
+            )}
+          </ul>
+        </nav>
+        <CartButton items={shoppingList.totalItems} />
+      </div>
     </header>
   );
 }
