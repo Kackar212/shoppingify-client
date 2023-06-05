@@ -30,6 +30,9 @@ export function HistoryListing({
           </ul>
         </section>
       ))}
+      {!shoppingLists.length && (
+        <p>There are no items in your shopping history!</p>
+      )}
       <Paginator {...pagination} />
     </article>
   );
