@@ -81,11 +81,6 @@ export function usePagination({
 }: UsePaginationArgs): UsePaginationResult {
   const router = useRouter();
   const [state, setPaginationState] = useState<PaginationState | null>(null);
-  const isMounted = useRef(false);
-
-  useEffect(() => {
-    isMounted.current = true;
-  }, []);
 
   const pagination = useMemo(() => {
     function transformPage(page: number, currentPage: number) {
