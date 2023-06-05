@@ -44,6 +44,7 @@
   font-size: 12px;
   line-height: 15px;
   visibility: hidden;
+  width: max-content;
 
   &::before {
     content: "";
