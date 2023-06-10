@@ -10,11 +10,11 @@ interface ProductProps {
 }
 
 export function Product({ id, name, quantity }: ProductProps) {
-  const slugifiedName = slugify(name, { lower: true });
+  const sluggifiedName = slugify(name, { lower: true });
 
   return (
     <div className={styles.product}>
-      <Link className={styles.name} href={`#product/${slugifiedName}/${id}`}>
+      <Link className={styles.name} href={`#product/${sluggifiedName}/${id}`}>
         {name}
       </Link>
       {quantity ? (
