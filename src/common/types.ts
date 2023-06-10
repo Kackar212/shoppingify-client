@@ -8,6 +8,7 @@ import { ChangeHandler, RegisterOptions } from "react-hook-form";
 import { MultiLineInput } from "./interfaces/multi-line-input.interface";
 import { SingleLineInput } from "./interfaces/single-line-input.interface";
 import { Category } from "./interfaces/category.interface";
+import { LIST_STATUS } from "./constants";
 
 export type Query<T> = LazyQueryTrigger<
   QueryDefinition<any, any, any, ApiResponse<T>>
@@ -46,3 +47,5 @@ export type TextFieldProps = (MultiLineInput | SingleLineInput) & {
 export type QueryPage = { page: string[] };
 
 export type CategoryWithoutProducts = Omit<Category, "products">;
+
+export type ListStatus = (typeof LIST_STATUS)[keyof typeof LIST_STATUS];
