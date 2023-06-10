@@ -18,6 +18,7 @@ export const VALIDATION_MODE_ALL = "all";
 export const LIST_STATUS = {
   COMPLETED: "completed",
   CANCELED: "canceled",
+  ACTIVE: "active",
 } as const;
 
 export const LOGIN_ROUTE = "/auth/login";
