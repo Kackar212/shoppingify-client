@@ -26,6 +26,7 @@ import { UpdateListProductBody } from "../common/interfaces/update-list-product-
 import { addProduct, decreaseTotalItems } from "./slices/shopping-list.slice";
 import type { IncomingMessage } from "http";
 import { PaginationQuery } from "../common/interfaces/pagination-query.interface";
+import { GetListQuery } from "../common/interfaces/get-list-query.interface";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -487,6 +488,17 @@ export const api = createApi({
       },
       providesTags: ["shoppingLists"],
     }),
+    getList: builder.query<
+      ApiResponse<ShoppingList, ApiPagination>,
+      GetListQuery
+    >({
+      query({ id, page, take }) {
+        return {
+          url: `shopping-list/${id}?page=${page}&take=${take}`,
+          ...AUTH,
+        };
+      },
+    }),
   }),
 });
 
@@ -511,6 +523,7 @@ export const {
   useSaveListMutation,
   useUpdateListProductMutation,
   useGetListsQuery,
+  useGetListQuery,
 } = api;
 
 export const {
@@ -534,4 +547,5 @@ export const {
   saveList,
   updateListProduct,
   getLists,
+  getList,
 } = api.endpoints;
