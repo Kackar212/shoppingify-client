@@ -1,4 +1,4 @@
-@value color-black from 'styles/colors.scss';
+@value color-black, color-orange from 'styles/colors.scss';
 
 .product {
   display: flex;
@@ -12,7 +12,7 @@
 }
 
 .name {
-  width: calc(100% - 24px);
+  flex-grow: 1;
   margin-right: 0.3125rem;
   font-size: 14px;
   max-width: 79px;
@@ -25,4 +25,9 @@
   @media screen and (min-width: 420px) {
     max-width: unset;
   }
+}
+
+.quantity {
+  color: color-orange;
+  font-size: 0.75rem;
 }

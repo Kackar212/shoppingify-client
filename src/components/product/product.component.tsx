@@ -6,9 +6,10 @@ import Link from "next/link";
 interface ProductProps {
   id: number;
   name: string;
+  quantity?: number;
 }
 
-export function Product({ id, name }: ProductProps) {
+export function Product({ id, name, quantity }: ProductProps) {
   const slugifiedName = slugify(name, { lower: true });
 
   return (
@@ -16,7 +17,11 @@ export function Product({ id, name }: ProductProps) {
       <Link className={styles.name} href={`#product/${slugifiedName}/${id}`}>
         {name}
       </Link>
-      <AddProductButton id={id} name={name} />
+      {quantity ? (
+        <span className={styles.quantity}>{quantity} pcs</span>
+      ) : (
+        <AddProductButton id={id} name={name} />
+      )}
     </div>
   );
 }
