@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Category } from "../../common/interfaces/category.interface";
 import { Product } from "../product/product.component";
-import { Product as IProduct } from "../../common/interfaces/product.interface";
 import styles from "./products.module.scss";
 import slugify from "slugify";
+import { ProductWithQuantity } from "../../common/interfaces/product-with-quantity.interface";
 
 interface ProductsProps {
-  category: Category;
-  products: IProduct<Category>[];
+  category: Omit<Category, "products">;
+  products: ProductWithQuantity[];
 }
 
 export function Products({ category: { name, id }, products }: ProductsProps) {
@@ -24,8 +24,8 @@ export function Products({ category: { name, id }, products }: ProductsProps) {
         </Link>
       </header>
       <div className={styles.products}>
-        {products.map(({ name, id }) => (
-          <Product key={id} id={id} name={name} />
+        {products.map(({ name, id, quantity }) => (
+          <Product key={id} id={id} name={name} quantity={quantity} />
         ))}
       </div>
     </section>
