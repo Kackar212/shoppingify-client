@@ -7,6 +7,7 @@ import { ApiResponse } from "./interfaces/api-response.interface";
 import { ChangeHandler, RegisterOptions } from "react-hook-form";
 import { MultiLineInput } from "./interfaces/multi-line-input.interface";
 import { SingleLineInput } from "./interfaces/single-line-input.interface";
+import { Category } from "./interfaces/category.interface";
 
 export type Query<T> = LazyQueryTrigger<
   QueryDefinition<any, any, any, ApiResponse<T>>
@@ -43,3 +44,5 @@ export type TextFieldProps = (MultiLineInput | SingleLineInput) & {
 };
 
 export type QueryPage = { page: string[] };
+
+export type CategoryWithoutProducts = Omit<Category, "products">;
