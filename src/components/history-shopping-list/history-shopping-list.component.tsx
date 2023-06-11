@@ -10,6 +10,7 @@ import {
 } from "../../common/constants";
 import { VisuallyHidden } from "../visually-hidden/visually-hidden.component";
 import { CalendarIcon } from "../calendar-icon/calendar-icon.component";
+import { StatusBadge } from "../status-badge/status-badge.component";
 
 const formatDate = (locale: string, date: string) => {
   return new Intl.DateTimeFormat(locale, {
@@ -38,8 +39,6 @@ export function HistoryShoppingList({
   completedBadgeColor = COMPLETED_BADGE_COLOR,
 }: HistoryShoppingListProps) {
   const sluggifiedName = slugify(name, { lower: true });
-  const isCanceled = status === "canceled";
-  const badgeColor = isCanceled ? canceledBadgeColor : completedBadgeColor;
   const href = {
     pathname: `/history/[name]/[id]`,
     query: { id, name: sluggifiedName },
@@ -54,15 +53,11 @@ export function HistoryShoppingList({
         </Link>
 
         <div className={styles.row}>
-          <div
-            className={styles.statusBadge}
-            style={{
-              "--badge-color": badgeColor,
-            }}
-          >
-            <VisuallyHidden>status: </VisuallyHidden>
-            {status}
-          </div>
+          <StatusBadge
+            canceledBadgeColor={canceledBadgeColor}
+            completedBadgeColor={completedBadgeColor}
+            status={status}
+          />
           <div className={styles.row}>
             <VisuallyHidden>Created at: </VisuallyHidden>
             <time dateTime={createdAt} className={styles.date}>
