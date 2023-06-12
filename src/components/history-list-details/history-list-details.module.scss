@@ -1,0 +1,12 @@
+.container {
+  padding: 1rem 0 0 1rem;
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  @media screen and (min-width: 990px) {
+    padding: 1rem 0 0 3.125rem;
+  }
+}
