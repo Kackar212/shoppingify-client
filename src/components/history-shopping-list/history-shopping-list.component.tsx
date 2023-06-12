@@ -9,26 +9,17 @@ import {
   COMPLETED_BADGE_COLOR,
 } from "../../common/constants";
 import { VisuallyHidden } from "../visually-hidden/visually-hidden.component";
-import { CalendarIcon } from "../calendar-icon/calendar-icon.component";
 import { StatusBadge } from "../status-badge/status-badge.component";
-
-const formatDate = (locale: string, date: string) => {
-  return new Intl.DateTimeFormat(locale, {
-    weekday: "long",
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  })
-    .format(new Date(date))
-    .replaceAll(/\//g, ".")
-    .replace(",", "");
-};
+import { Time } from "../time/time.component";
 
 interface HistoryShoppingListProps extends ShoppingList {
   name: string;
   canceledBadgeColor?: string;
   completedBadgeColor?: string;
 }
+
+const afterFormat = (date: string) =>
+  date.replaceAll(/\//g, ".").replace(",", "");
 
 export function HistoryShoppingList({
   id,
@@ -58,13 +49,10 @@ export function HistoryShoppingList({
             completedBadgeColor={completedBadgeColor}
             status={status}
           />
-          <div className={styles.row}>
+          <p>
             <VisuallyHidden>Created at: </VisuallyHidden>
-            <time dateTime={createdAt} className={styles.date}>
-              {formatDate("en-GB", createdAt)}
-            </time>
-            <CalendarIcon className={styles.icon} />
-          </div>
+            <Time date={createdAt} afterFormat={afterFormat} />
+          </p>
         </div>
       </div>
     </li>
