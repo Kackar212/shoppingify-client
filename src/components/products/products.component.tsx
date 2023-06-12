@@ -17,7 +17,7 @@ export function Products({ category: { name, id }, products }: ProductsProps) {
     <section className={styles.section}>
       <header className={styles.header}>
         <Link
-          href={`category/${categoryName}/${id}`}
+          href={`/category/${categoryName}/${id}`}
           className={styles.category}
         >
           {name}
