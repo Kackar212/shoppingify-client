@@ -27,6 +27,7 @@ import { addProduct, decreaseTotalItems } from "./slices/shopping-list.slice";
 import type { IncomingMessage } from "http";
 import { PaginationQuery } from "../common/interfaces/pagination-query.interface";
 import { GetListQuery } from "../common/interfaces/get-list-query.interface";
+import { ShareListBody } from "../common/interfaces/share-list-body.interface";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -499,6 +500,15 @@ export const api = createApi({
         };
       },
     }),
+    shareList: builder.mutation<ApiResponse<ShoppingList>, ShareListBody>({
+      query(body) {
+        return {
+          url: "/shopping-list/share",
+          body,
+          ...AUTH,
+        };
+      },
+    }),
   }),
 });
 
@@ -524,6 +534,7 @@ export const {
   useUpdateListProductMutation,
   useGetListsQuery,
   useGetListQuery,
+  useShareListMutation,
 } = api;
 
 export const {
@@ -548,4 +559,5 @@ export const {
   updateListProduct,
   getLists,
   getList,
+  shareList,
 } = api.endpoints;
