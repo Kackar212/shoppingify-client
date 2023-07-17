@@ -512,6 +512,9 @@ export const api = createApi({
           ...AUTH,
         };
       },
+      providesTags: (_result, _error, { id }) => [
+        createTag("shoppingLists", id),
+      ],
     }),
     shareList: builder.mutation<ApiResponse<ShoppingList>, ShareListBody>({
       query(body) {
