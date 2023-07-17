@@ -504,6 +504,7 @@ export const api = createApi({
       query(body) {
         return {
           url: "/shopping-list/share",
+          method: "PATCH",
           body,
           ...AUTH,
         };
