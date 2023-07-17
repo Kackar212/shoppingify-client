@@ -487,7 +487,20 @@ export const api = createApi({
           ...AUTH,
         };
       },
-      providesTags: ["shoppingLists"],
+      providesTags: (result) => {
+        if (!result) {
+          return [createTag("shoppingLists")];
+        }
+
+        return [
+          ...result.data.flatMap(([date, shoppingLists]) =>
+            shoppingLists.map(({ id }) =>
+              createTag("shoppingLists" as const, id)
+            )
+          ),
+          createTag("shoppingLists"),
+        ];
+      },
     }),
     getList: builder.query<
       ApiResponse<ShoppingList, ApiPagination>,
