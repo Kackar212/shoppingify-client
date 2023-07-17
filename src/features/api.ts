@@ -525,6 +525,9 @@ export const api = createApi({
           ...AUTH,
         };
       },
+      invalidatesTags: (_result, _error, { id }) => [
+        createTag("shoppingLists", id),
+      ],
     }),
   }),
 });
