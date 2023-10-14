@@ -14,7 +14,7 @@ interface NavListItemProps {
 
 export function NavListItem({ href, icon, tipLabel }: NavListItemProps) {
   const router = useRouter();
-  const ariaCurrent = router.route === href ? "page" : undefined;
+  const ariaCurrent = router.asPath === href ? "page" : undefined;
 
   return (
     <li className={styles.listItem}>
