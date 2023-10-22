@@ -529,6 +529,19 @@ export const api = createApi({
         createTag("shoppingLists", id),
       ],
     }),
+    deleteList: builder.mutation<Record<string, unknown>, number>({
+      query(id: number) {
+        return {
+          url: "/shopping-list/delete",
+          body: { id },
+          method: "DELETE",
+          ...AUTH,
+        };
+      },
+      invalidatesTags: (_result, _error, id) => [
+        createTag("shoppingLists", id),
+      ],
+    }),
   }),
 });
 
@@ -555,6 +568,7 @@ export const {
   useGetListsQuery,
   useGetListQuery,
   useShareListMutation,
+  useDeleteListMutation,
 } = api;
 
 export const {
@@ -580,4 +594,5 @@ export const {
   getLists,
   getList,
   shareList,
+  deleteList,
 } = api.endpoints;
