@@ -61,7 +61,9 @@ export const Search = React.forwardRef<
         return shouldCreateNewOption(...args);
       }
 
-      return isCreatable;
+      const [newOption] = args;
+
+      return !!newOption && isCreatable;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
