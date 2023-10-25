@@ -62,3 +62,21 @@
   display: flex;
   align-items: center;
 }
+
+.username {
+  font-weight: bold;
+}
+
+.buttons {
+  composes: row;
+  gap: 2rem;
+
+  & > *:nth-child(even)::before {
+    content: "";
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    background: #000;
+    margin: -1rem;
+  }
+}

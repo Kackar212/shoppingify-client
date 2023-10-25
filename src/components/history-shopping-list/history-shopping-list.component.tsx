@@ -11,6 +11,11 @@ import {
 import { VisuallyHidden } from "../visually-hidden/visually-hidden.component";
 import { StatusBadge } from "../status-badge/status-badge.component";
 import { Time } from "../time/time.component";
+import { Share } from "../share/share.component";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../../features/slices/auth.slice";
+import { DeleteListButton } from "../delete-list-button/delete-list-button.component";
+import { User } from "../../common/interfaces/user.interface";
 
 interface HistoryShoppingListProps extends ShoppingList {
   name: string;
@@ -26,6 +31,8 @@ export function HistoryShoppingList({
   name,
   createdAt,
   status,
+  authorizedUsers,
+  user: owner,
   canceledBadgeColor = CANCELED_BADGE_COLOR,
   completedBadgeColor = COMPLETED_BADGE_COLOR,
 }: HistoryShoppingListProps) {
@@ -34,6 +41,8 @@ export function HistoryShoppingList({
     pathname: `/history/[name]/[id]`,
     query: { id, name: sluggifiedName },
   };
+  const { user: currentUser } = useSelector(selectAuth);
+  const isCurrentUser = (user: User) => currentUser?.id === user.id;
 
   return (
     <li className={styles.list}>
@@ -54,6 +63,22 @@ export function HistoryShoppingList({
             <Time date={createdAt} afterFormat={afterFormat} />
           </p>
         </div>
+        {isCurrentUser(owner) && (
+          <div className={styles.buttons}>
+            <Share
+              id={id}
+              owner={owner}
+              authorizedUsers={authorizedUsers || []}
+            />
+            <DeleteListButton id={id} />
+          </div>
+        )}
+        {!isCurrentUser(owner) && (
+          <p>
+            Shared with you by{" "}
+            <span className={styles.username}>{owner.name}</span>!
+          </p>
+        )}
       </div>
     </li>
   );
