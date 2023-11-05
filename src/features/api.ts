@@ -28,6 +28,7 @@ import type { IncomingMessage } from "http";
 import { PaginationQuery } from "../common/interfaces/pagination-query.interface";
 import { GetListQuery } from "../common/interfaces/get-list-query.interface";
 import { ShareListBody } from "../common/interfaces/share-list-body.interface";
+import { Statistics } from "../common/interfaces/statistics.interface";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -542,6 +543,14 @@ export const api = createApi({
         createTag("shoppingLists", id),
       ],
     }),
+    getStatistics: builder.query<ApiResponse<Statistics>, void>({
+      query() {
+        return {
+          url: "/shopping-list/statistics",
+          ...AUTH,
+        };
+      },
+    }),
   }),
 });
 
@@ -569,6 +578,7 @@ export const {
   useGetListQuery,
   useShareListMutation,
   useDeleteListMutation,
+  useGetStatisticsQuery,
 } = api;
 
 export const {
