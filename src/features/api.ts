@@ -605,4 +605,5 @@ export const {
   getList,
   shareList,
   deleteList,
+  getStatistics,
 } = api.endpoints;
