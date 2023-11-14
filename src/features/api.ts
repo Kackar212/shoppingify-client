@@ -319,13 +319,14 @@ export const api = createApi({
         };
       },
     }),
-    resendActivationMail: builder.mutation<ApiResponse<{}>, void>({
-      query() {
+    resendActivationMail: builder.mutation<ApiResponse<{}>, { email: string }>({
+      query({ email }) {
         return {
           method: "POST",
           url: "auth/resend-activation-mail",
           body: {
             redirect: REDIRECT_URL,
+            email,
           },
           ...AUTH,
         };
