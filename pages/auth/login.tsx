@@ -13,7 +13,14 @@ export default function Login() {
         </p>
         <p>
           You forgot password?{" "}
-          <Link href="/auth/reset-password">Reset password</Link>
+          <Link href="/auth/forgot-password">Reset password</Link>
+        </p>
+        <p>
+          Do you want to{" "}
+          <Link href="/auth/resend-activation-mail">
+            resent activation mail
+          </Link>
+          ?
         </p>
       </FormFooter>
     </section>

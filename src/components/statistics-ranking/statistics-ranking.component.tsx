@@ -21,6 +21,7 @@ export function StatisticsRanking({ data, type }: StatisticsRankingProps) {
           ></div>
         </div>
       ))}
+      {data.length === 0 && <p>There are no completed shopping lists</p>}
     </section>
   );
 }

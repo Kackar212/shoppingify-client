@@ -11,6 +11,7 @@ import { VisuallyHidden } from "../visually-hidden/visually-hidden.component";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { selectShoppingList } from "../../features/slices/shopping-list.slice";
+import { selectAuth } from "../../features/slices/auth.slice";
 
 const onlyLettersAndNumbersRegex = /^[a-źA-Ź0-9 ]+$/;
 const startsWithLetterRegex = /^[A-Ź].*/i;
@@ -37,9 +38,18 @@ interface FormValues {
 export function SaveListForm() {
   const { hasProducts } = useSelector(selectShoppingList);
   const [saveActiveList, { isSuccess, isLoading }] = useSaveListMutation();
+  const { isLoggedIn } = useSelector(selectAuth);
 
   const saveList = useCallback(
     ({ listName }: FormValues) => {
+      if (!isLoggedIn) {
+        toast.error("You need to log in to save list!", {
+          role: "generic",
+        });
+
+        return;
+      }
+
       if (!hasProducts) {
         toast.error("You cannot save list without products!", {
           role: "generic",
@@ -85,10 +95,15 @@ export function SaveListForm() {
         }}
       />
       <Button type={"submit"} isLoading={isLoading} className={styles.submit}>
-        <span aria-hidden={!hasProducts}>
+        <span>
           Save <VisuallyHidden>list</VisuallyHidden>
         </span>
-        {!hasProducts && (
+        {!isLoggedIn && (
+          <VisuallyHidden>
+            You need to log in to save list!
+          </VisuallyHidden>
+        )}
+        {!hasProducts && isLoggedIn && (
           <VisuallyHidden>
             You cannot save list without any products!
           </VisuallyHidden>

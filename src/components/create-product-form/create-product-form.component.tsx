@@ -79,8 +79,6 @@ export function CreateProductForm() {
     const isDirty = !!formContextValue.formState.dirtyFields.category;
     const category = searchProps.value;
 
-    console.log("hmm", category);
-
     formContextValue.setValue("category", category, {
       shouldValidate: !!searchProps.value || isDirty,
       shouldDirty: true,

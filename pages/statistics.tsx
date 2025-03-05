@@ -29,10 +29,12 @@ export default function StatisticsPage() {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   withAuth(async ({ store }) => {
-    await store.dispatch(getStatistics.initiate()).unwrap();
-
-    return {
-      props: {},
-    };
+    try {
+      await store.dispatch(getStatistics.initiate()).unwrap();
+    } finally {
+      return {
+        props: {},
+      };
+    }
   })
 );

@@ -1,3 +1,4 @@
 export interface ResetPasswordBody {
-  email: string;
+  newPassword: string;
+  token: string;
 }

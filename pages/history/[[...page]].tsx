@@ -51,6 +51,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     );
 
     const props = { take: PAGINATION_TAKE, page: prepareQueryPage(page) };
+
     try {
       const { pagination } = await store
         .dispatch(getLists.initiate(props))

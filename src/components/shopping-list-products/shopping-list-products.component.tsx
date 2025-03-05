@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import noItems from "public/assets/images/no-item.svg";
 
 export function ShoppingListProducts() {
-  const { data: shoppingList } = useGetActiveListQuery(undefined, {
+  const { data: shoppingList, isError, error } = useGetActiveListQuery(undefined, {
     selectFromResult: (state) => {
       return {
         ...state,
@@ -45,6 +45,15 @@ export function ShoppingListProducts() {
       }, {} as Record<string, IShoppingListProduct[]>)
     );
   }, [shoppingList]);
+
+  if (isError && "status" in error && error.status === 401) {
+    return (
+      <div className={styles.noItems}>
+        <span className={styles.noItemsText}>Log in to see your active shopping list!</span>
+        <Image src={noItems} alt="" className={styles.noItemsImage} />
+      </div>
+    )
+  }
 
   if (!shoppingList) {
     return <Loader />;

@@ -29,6 +29,7 @@ import { PaginationQuery } from "../common/interfaces/pagination-query.interface
 import { GetListQuery } from "../common/interfaces/get-list-query.interface";
 import { ShareListBody } from "../common/interfaces/share-list-body.interface";
 import { Statistics } from "../common/interfaces/statistics.interface";
+import { ResetPasswordRequestBody } from "../common/interfaces/reset-password-request-body.interface";
 
 const API_REDUCER_PATH = "api";
 const REDIRECT_URL = new URL(
@@ -72,7 +73,6 @@ const baseQueryWithAuthOnServer =
         api as BaseQueryApi & { extra: Context }
       );
     }
-
     const result = await baseQuery(args, api, extraOptions);
 
     if (!result.error) {
@@ -85,7 +85,11 @@ const baseQueryWithAuthOnServer =
     }
 
     const refreshResult = await baseQuery(
-      { url: "auth/refresh", method: "POST", credentials: "include" },
+      {
+        url: "auth/refresh",
+        method: "POST",
+        credentials: "include",
+      },
       api,
       extraOptions
     );
@@ -110,9 +114,9 @@ export const api = createApi({
   reducerPath: API_REDUCER_PATH,
   baseQuery: baseQueryWithAuthOnServer(
     (headers, { extra: ctx }): MaybePromise<Headers> => {
-      if (typeof window !== "undefined") {
-        return headers;
-      }
+      // if (typeof window !== "undefined") {
+      //   return headers;
+      // }
 
       const isObject = (value: unknown): value is Object =>
         typeof value === "object" && value !== null;
@@ -332,11 +336,26 @@ export const api = createApi({
         };
       },
     }),
+    forgotPassword: builder.mutation<ApiResponse<{}>, ResetPasswordRequestBody>(
+      {
+        query(forgotPasswordBody) {
+          return {
+            method: "POST",
+            url: `auth/reset-password-request`,
+            body: {
+              ...forgotPasswordBody,
+              clientUrl: process.env.NEXT_PUBLIC_APP_URL,
+            },
+            ...AUTH,
+          };
+        },
+      }
+    ),
     resetPassword: builder.mutation<ApiResponse<{}>, ResetPasswordBody>({
       query(resetPasswordBody) {
         return {
           method: "POST",
-          url: "auth/reset-password",
+          url: `auth/reset-password/${resetPasswordBody.token}`,
           body: resetPasswordBody,
           ...AUTH,
         };
@@ -569,6 +588,7 @@ export const {
   useRefreshTokenMutation,
   useResendActivationMailMutation,
   useResetPasswordMutation,
+  useForgotPasswordMutation,
   useGetActiveListQuery,
   useAddProductToListMutation,
   useDeleteProductFromListMutation,

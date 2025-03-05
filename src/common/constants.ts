@@ -9,8 +9,10 @@ export const API_ERROR = {
 export const API_SUCCESS = {
   LOGGED_IN: "You have logged in!",
   ACCOUNT_CREATED: "Your account has been created! Check your e-mail!",
-  PASSWORD_RESETED: "New password was sent to your email!",
+  PASSWORD_RESETED: "Your password has been reset!",
   PRODUCT_CREATED: "New product has been created!",
+  MAIL_RESENT: "Activation mail has been resent!",
+  FORGOT_PASSWORD: "Check your email address and follow the link!",
 };
 
 export const VALIDATION_MODE_ALL = "all";

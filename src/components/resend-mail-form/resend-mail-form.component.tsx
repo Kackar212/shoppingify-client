@@ -1,5 +1,8 @@
 import { ResetPasswordBody } from "../../common/interfaces/reset-password-body.interface";
-import { useResetPasswordMutation } from "../../features/api";
+import {
+  useResendActivationMailMutation,
+  useResetPasswordMutation,
+} from "../../features/api";
 import * as yup from "yup";
 import { AuthForm } from "../auth-form/auth-form.component";
 import { AuthFormContent } from "../auth-form-content/auth-form-content.component";
@@ -7,43 +10,33 @@ import { FormFieldInput } from "../../common/interfaces/form-field-input.interfa
 import { API_SUCCESS } from "../../common/constants";
 import { useGetErrorMessage } from "../../hooks/useGetErrorMessage";
 
-const resetPasswordSchema = yup
+const resendMailSchema = yup
   .object({
-    newPassword: yup.string().required(),
+    email: yup.string().email().required(),
   })
   .required();
 
 const inputs: FormFieldInput[] = [
   {
-    name: "newPassword",
-    label: "New password",
-    type: "password",
+    name: "email",
+    label: "Email",
   },
 ];
 
-interface ResetPasswordFormProps {
-  token: string;
-}
-
-export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
-  const [resetPasswordMutation, { isSuccess, error }] =
-    useResetPasswordMutation();
+export function ResendMailForm() {
+  const [resendActivationMail, { isSuccess, error }] =
+    useResendActivationMailMutation();
   const errorMessage = useGetErrorMessage(error);
 
   return (
     <AuthForm<ResetPasswordBody>
-      onSubmit={(data) => {
-        resetPasswordMutation({
-          token,
-          newPassword: data.newPassword
-        })
-      }}
-      schema={resetPasswordSchema}
+      onSubmit={resendActivationMail}
+      schema={resendMailSchema}
     >
       <AuthFormContent
-        heading="Reset password"
+        heading="Resend activation mail"
         inputs={inputs}
-        successMessage={API_SUCCESS.PASSWORD_RESETED}
+        successMessage={API_SUCCESS.MAIL_RESENT}
         errorMessage={errorMessage}
         isSuccess={isSuccess}
       />

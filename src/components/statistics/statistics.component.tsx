@@ -6,12 +6,8 @@ import { Loader } from "../loader/loader.component";
 import { useGetStatisticsQuery } from "../../features/api";
 
 export function Statistics() {
-  const { data, isLoading, isFetching, error } = useGetStatisticsQuery(
-    undefined,
-    {
-      refetchOnMountOrArgChange: 300,
-    }
-  );
+  const { data, isLoading, isFetching, error } =
+    useGetStatisticsQuery(undefined);
 
   if (!data && isLoading) {
     return (
